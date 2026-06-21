@@ -5,22 +5,31 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <title>🥈 사회복지사 2급 교육원 비교 · silvercare</title>
 <meta name="description" content="최저가 × 자동화 가능 — 후회 없는 최단기 사회복지사 2급 취득 교육원 비교" />
-<link rel="preconnect" href="https://cdn.jsdelivr.net" />
+<link rel="icon" href="data:," />
 <style>
   * { -webkit-tap-highlight-color: transparent; box-sizing: border-box; }
   body { margin: 0; }
-  @media (prefers-reduced-motion: no-preference) {
-    button { transition: transform .06s ease; }
-    button:active { transform: scale(.98); }
-  }
+  #err { display:none; font-family:system-ui,sans-serif; padding:24px; color:#be123c; white-space:pre-wrap; }
+  button:active { transform: scale(.98); }
 </style>
-<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.24.7/babel.min.js"></script>
 </head>
 <body>
+<div id="err">로딩 실패 😢 — 네트워크(jsDelivr 차단)나 스크립트 오류일 수 있어요. 잠시 후 새로고침 해보세요.</div>
 <div id="root"></div>
-<script type="text/babel">
+<script>
+  // CDN 로딩 실패 감지
+  window.addEventListener('load', function(){
+    setTimeout(function(){
+      if(!window.React || !window.ReactDOM || !window.Babel){
+        document.getElementById('err').style.display='block';
+      }
+    }, 1500);
+  });
+</script>
+<script type="text/babel" data-presets="react">
 const { useState, useMemo } = React;
 
 const B = { ink:"#1c1917", cream:"#fdfcf7", card:"#fffdf8", sub:"#78716c",
@@ -57,28 +66,28 @@ function verdictOf(count, touched){
 }
 const font = {fontFamily:"Pretendard, -apple-system, BlinkMacSystemFont, system-ui, 'Apple SD Gothic Neo', sans-serif"};
 
-function Chip({status,text}){
-  const s = ST[status]||ST.unknown;
+function Chip(props){
+  var s = ST[props.status]||ST.unknown;
   return (<span style={{display:"inline-flex",alignItems:"center",gap:5,fontSize:12,fontWeight:800,color:s.c,background:s.bg,border:"1.5px solid "+B.ink,borderRadius:999,padding:"3px 10px",whiteSpace:"nowrap"}}>
-    <span style={{width:8,height:8,borderRadius:999,background:s.dot}}/>{text||s.label}</span>);
+    <span style={{width:8,height:8,borderRadius:999,background:s.dot}}/>{props.text||s.label}</span>);
 }
-function SectionTitle({no,title,sub}){
+function SectionTitle(props){
   return (<div style={{display:"flex",alignItems:"flex-end",gap:12,marginBottom:16}}>
-    <span style={{fontFamily:"ui-monospace, Menlo, monospace",fontSize:30,fontWeight:900,color:B.ink,lineHeight:1,letterSpacing:-1}}>{no}</span>
-    <div><div style={{fontSize:20,fontWeight:900,color:B.ink,lineHeight:1.1}}>{title}</div>
-    {sub&&<div style={{fontSize:13,color:B.sub,fontWeight:600,marginTop:2}}>{sub}</div>}</div></div>);
+    <span style={{fontFamily:"ui-monospace, Menlo, monospace",fontSize:30,fontWeight:900,color:B.ink,lineHeight:1,letterSpacing:-1}}>{props.no}</span>
+    <div><div style={{fontSize:20,fontWeight:900,color:B.ink,lineHeight:1.1}}>{props.title}</div>
+    {props.sub&&<div style={{fontSize:13,color:B.sub,fontWeight:600,marginTop:2}}>{props.sub}</div>}</div></div>);
 }
-function Card({children,style}){
-  return <div style={Object.assign({background:B.card,border:"2px solid "+B.ink,borderRadius:14,boxShadow:B.shadow,padding:18},style)}>{children}</div>;
+function Card(props){
+  return <div style={Object.assign({background:B.card,border:"2px solid "+B.ink,borderRadius:14,boxShadow:B.shadow,padding:18},props.style)}>{props.children}</div>;
 }
 
 function App(){
   const [open,setOpen] = useState("joongang");
-  const [checks,setChecks] = useState(()=>Object.fromEntries(SITES.map(s=>[s.id,[false,false,false,false,false,false]])));
-  const toggle=(id,i)=>setChecks(p=>{const n=p[id].slice();n[i]=!n[i];return Object.assign({},p,{[id]:n});});
-  const priceRank = useMemo(()=>SITES.filter(s=>s.priceNum<900000).sort((a,b)=>a.priceNum-b.priceNum),[]);
+  const [checks,setChecks] = useState(function(){var o={};SITES.forEach(function(s){o[s.id]=[false,false,false,false,false,false];});return o;});
+  function toggle(id,i){setChecks(function(p){var n=p[id].slice();n[i]=!n[i];var c=Object.assign({},p);c[id]=n;return c;});}
+  const priceRank = useMemo(function(){return SITES.filter(function(s){return s.priceNum<900000;}).sort(function(a,b){return a.priceNum-b.priceNum;});},[]);
 
-  return (<div style={Object.assign({minHeight:"100vh",background:"linear-gradient(160deg,#fdfcf7 0%,#f5f1e8 45%,#ebe4d3 100%)",padding:"max(28px,env(safe-area-inset-top)) 16px 56px"},font)}>
+  return (<div style={Object.assign({minHeight:"100vh",background:"linear-gradient(160deg,#fdfcf7 0%,#f5f1e8 45%,#ebe4d3 100%)",padding:"28px 16px 56px"},font)}>
     <div style={{maxWidth:880,margin:"0 auto"}}>
 
       <div style={{marginBottom:22}}>
@@ -102,21 +111,21 @@ function App(){
         <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(240px,1fr))",gap:12}}>
           {[{e:"💸",t:"최저가",v:"배움 4.5만",d:"공개 고정가 최저·투명. 해커스 9,700원은 7과목↑ 조건부",s:"best"},
             {e:"🤖",t:"자동화",v:"전부 미확정",d:"F12 분석 필요. 중앙=iframe, 메가=IP출석 빡셈",s:"unknown"},
-            {e:"📅",t:"최단 취득",v:"3학기·2028 상반기",d:"17과목 풀 / 학기 8과목 상한 → 물리적 바닥",s:"limited"}].map((x,i)=>(
+            {e:"📅",t:"최단 취득",v:"3학기·2028 상반기",d:"17과목 풀 / 학기 8과목 상한 → 물리적 바닥",s:"limited"}].map(function(x,i){return(
             <Card key={i} style={{padding:16}}>
               <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:8}}>
                 <span style={{fontSize:18}}>{x.e}</span><span style={{fontSize:14,fontWeight:800,color:B.ink}}>{x.t}</span>
                 <span style={{marginLeft:"auto"}}><Chip status={x.s}/></span></div>
               <div style={{fontSize:19,fontWeight:900,color:B.ink,marginBottom:6}}>{x.v}</div>
               <div style={{fontSize:12.5,color:B.sub,fontWeight:600,lineHeight:1.5}}>{x.d}</div>
-            </Card>))}
+            </Card>);})}
         </div>
       </div>
 
       <div style={{marginBottom:30}}>
         <SectionTitle no="02" title="가격 랭킹" sub="과목당 공개가 (상담가·미조사 제외)"/>
         <Card>
-          {priceRank.map((s,i)=>{const w=Math.max(8,(s.priceNum/150000)*100);const cheap=i===0;return(
+          {priceRank.map(function(s,i){var w=Math.max(8,(s.priceNum/150000)*100);var cheap=i===0;return(
             <div key={s.id} style={{display:"flex",alignItems:"center",gap:10,padding:"9px 0",borderBottom:i<priceRank.length-1?"1.5px dashed #d6ccb5":"none"}}>
               <span style={{width:18,fontWeight:900,fontSize:14,color:cheap?"#047857":B.sub}}>{i+1}</span>
               <span style={{width:92,fontWeight:800,fontSize:13.5,color:B.ink}}>{s.name}</span>
@@ -131,14 +140,14 @@ function App(){
       <div style={{marginBottom:30}}>
         <SectionTitle no="03" title="비교 매트릭스" sub="행을 누르면 펼쳐져요 · 자동화 항목은 직접 체크 ✅"/>
         <div style={{display:"flex",flexWrap:"wrap",gap:8,marginBottom:12}}>
-          {["best","ok","limited","risk","unknown"].map(k=><Chip key={k} status={k}/>)}
+          {["best","ok","limited","risk","unknown"].map(function(k){return <Chip key={k} status={k}/>;})}
         </div>
         <div style={{display:"flex",flexDirection:"column",gap:10}}>
-          {SITES.map(s=>{
-            const isOpen=open===s.id;const count=checks[s.id].filter(Boolean).length;
-            const touched=checks[s.id].some(Boolean);const vd=verdictOf(count,touched);
+          {SITES.map(function(s){
+            var isOpen=open===s.id;var count=checks[s.id].filter(Boolean).length;
+            var touched=checks[s.id].some(Boolean);var vd=verdictOf(count,touched);
             return(<div key={s.id} style={{background:B.card,border:"2px solid "+B.ink,borderRadius:14,boxShadow:isOpen?B.shadow:B.shadowSm}}>
-              <button onClick={()=>setOpen(isOpen?null:s.id)} style={Object.assign({width:"100%",display:"flex",alignItems:"center",gap:10,padding:"14px 16px",background:"transparent",border:"none",cursor:"pointer",textAlign:"left"},font)}>
+              <button onClick={function(){setOpen(isOpen?null:s.id);}} style={Object.assign({width:"100%",display:"flex",alignItems:"center",gap:10,padding:"14px 16px",background:"transparent",border:"none",cursor:"pointer",textAlign:"left"},font)}>
                 <span style={{fontSize:14}}>{isOpen?"▾":"▸"}</span>
                 <span style={{fontSize:16,fontWeight:900,color:B.ink,minWidth:90}}>{s.name}</span>
                 <span style={{fontSize:11.5,fontWeight:800,color:B.sub}}>{s.tag}</span>
@@ -149,10 +158,10 @@ function App(){
               </button>
               {isOpen&&(<div style={{padding:"0 16px 16px",borderTop:"1.5px dashed #d6ccb5"}}>
                 <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(120px,1fr))",gap:8,margin:"14px 0"}}>
-                  {[["학점은행",s.credit],["17과목",s.subjects],["이번학기",s.enroll],["실습연계",s.practicum],["LMS",s.lms]].map(([label,st])=>(
+                  {[["학점은행",s.credit],["17과목",s.subjects],["이번학기",s.enroll],["실습연계",s.practicum],["LMS",s.lms]].map(function(pair){var label=pair[0],st=pair[1];return(
                     <div key={label} style={{background:B.cream,border:"1.5px solid "+B.ink,borderRadius:10,padding:"8px 10px"}}>
                       <div style={{fontSize:11,fontWeight:700,color:B.sub,marginBottom:4}}>{label}</div>
-                      <Chip status={st} text={label==="LMS"?s.lmsLabel:undefined}/></div>))}
+                      <Chip status={st} text={label==="LMS"?s.lmsLabel:undefined}/></div>);})}
                   <div style={{background:B.cream,border:"1.5px solid "+B.ink,borderRadius:10,padding:"8px 10px"}}>
                     <div style={{fontSize:11,fontWeight:700,color:B.sub,marginBottom:4}}>총예상</div>
                     <div style={{fontSize:14,fontWeight:900,color:B.ink}}>{s.total}</div></div>
@@ -164,8 +173,8 @@ function App(){
                   <div style={{display:"flex",alignItems:"center",gap:7,marginBottom:10,flexWrap:"wrap"}}>
                     <span style={{fontSize:15}}>🧪</span><span style={{fontSize:13.5,fontWeight:900,color:B.ink}}>F12 자동화 체크 (찍으며 클릭)</span>
                     <span style={{marginLeft:"auto"}}><Chip status={vd.key} text={vd.label+" · "+vd.txt}/></span></div>
-                  {CHECK_ITEMS.map((label,i)=>{const on=checks[s.id][i];return(
-                    <button key={i} onClick={()=>toggle(s.id,i)} style={Object.assign({width:"100%",display:"flex",alignItems:"center",gap:9,padding:"8px 6px",background:"transparent",border:"none",borderBottom:i<5?"1px solid #e6ddc8":"none",cursor:"pointer",textAlign:"left"},font)}>
+                  {CHECK_ITEMS.map(function(label,i){var on=checks[s.id][i];return(
+                    <button key={i} onClick={function(){toggle(s.id,i);}} style={Object.assign({width:"100%",display:"flex",alignItems:"center",gap:9,padding:"8px 6px",background:"transparent",border:"none",borderBottom:i<5?"1px solid #e6ddc8":"none",cursor:"pointer",textAlign:"left"},font)}>
                       {on?<span style={{fontSize:18,color:"#059669"}}>☑</span>:<span style={{width:18,height:18,borderRadius:6,border:"2px solid "+B.ink,flexShrink:0,display:"inline-block"}}/>}
                       <span style={{fontSize:13,fontWeight:on?800:600,color:on?B.ink:B.sub}}>{label}</span>
                     </button>);})}
@@ -182,11 +191,11 @@ function App(){
           {[{e:"⚠️",t:"자동화는 아직 0확정",d:"5곳 다 F12 직접 분석 전. 표의 자동화 칸은 가설. 체크 끝나야 확정."},
             {e:"❌",t:"해커스 9,700원의 함정",d:"7과목↑ 대량결제 + 최대80% 이벤트 조건. 정가·취소조건 모르면 비교 왜곡."},
             {e:"⚠️",t:"메가 IP·재인증",d:"IP 1인 + 생체/OTP/PIN 대리출석 차단. 자동화 가장 불리할 수 있음."},
-            {e:"⏳",t:"2028 상반기는 못 피함",d:"석사 있어도 인정과목 0 → 17과목 풀 → 3학기. 시험·과제는 수동이라 학기 부담 큼."}].map((x,i)=>(
+            {e:"⏳",t:"2028 상반기는 못 피함",d:"석사 있어도 인정과목 0 → 17과목 풀 → 3학기. 시험·과제는 수동이라 학기 부담 큼."}].map(function(x,i){return(
             <Card key={i} style={{padding:14}}>
               <div style={{display:"flex",alignItems:"center",gap:7,marginBottom:6}}>
                 <span style={{fontSize:16}}>{x.e}</span><span style={{fontSize:14,fontWeight:900,color:B.ink}}>{x.t}</span></div>
-              <div style={{fontSize:12.5,color:B.sub,fontWeight:600,lineHeight:1.55}}>{x.d}</div></Card>))}
+              <div style={{fontSize:12.5,color:B.sub,fontWeight:600,lineHeight:1.55}}>{x.d}</div></Card>);})}
         </div>
       </div>
 
@@ -197,12 +206,12 @@ function App(){
             ["F12로 자동화 체크 (위 03 사용)","중앙(iframe)→메가(빡셈)→배움→해커스→Kstudy→유비온"],
             ["최저가 × 자동화 가능 교차점 선택","공개가 최저(배움) + 자동화 ✅ 나오는 곳 우선"],
             ["2026 2학기 8과목 신청","현장실습 선이수(필수4+선택2) 1학기차 완성 = 시나리오 B"],
-            ["현장실습 기관 미리 섭외","welfare.net 등록기관, 주말·야간 가능처 2027 초부터"]].map(([t,d],i)=>(
+            ["현장실습 기관 미리 섭외","welfare.net 등록기관, 주말·야간 가능처 2027 초부터"]].map(function(pair,i){var t=pair[0],d=pair[1];return(
             <div key={i} style={{display:"flex",gap:12,padding:"11px 0",borderBottom:i<4?"1.5px dashed #d6ccb5":"none"}}>
               <span style={{width:26,height:26,flexShrink:0,borderRadius:8,background:"#fde68a",border:"2px solid "+B.ink,display:"flex",alignItems:"center",justifyContent:"center",fontWeight:900,fontSize:13}}>{i+1}</span>
               <div><div style={{fontSize:14,fontWeight:800,color:B.ink}}>{t}</div>
               <div style={{fontSize:12.5,color:B.sub,fontWeight:600,marginTop:2}}>{d}</div></div>
-            </div>))}
+            </div>);})}
         </Card>
       </div>
 
