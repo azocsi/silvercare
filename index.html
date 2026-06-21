@@ -4,33 +4,115 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>사회복지사 2급 교육원 비교 · LMS 자동화 실측</title>
-<link rel="preconnect" href="https://cdn.jsdelivr.net" />
 <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" rel="stylesheet" />
-<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 <style>
-  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-  body { margin: 0; font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-    background: linear-gradient(160deg, #fdfcf7 0%, #f5f1e8 45%, #ebe4d3 100%); }
-  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+  :root {
+    --ink:#1c1917; --cream:#fdfcf7; --card:#fffdf8; --sub:#78716c;
+    --shadow:4px 4px 0 0 #1c1917; --shadow-sm:2px 2px 0 0 #1c1917;
+  }
+  * { box-sizing:border-box; -webkit-tap-highlight-color:transparent; margin:0; padding:0; }
+  body {
+    font-family:Pretendard,-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
+    background:linear-gradient(160deg,#fdfcf7 0%,#f5f1e8 45%,#ebe4d3 100%);
+    color:var(--ink); line-height:1.5; padding:24px 14px 48px;
+  }
+  .wrap { max-width:560px; margin:0 auto; }
+  .badge {
+    display:inline-block; font-size:11.5px; font-weight:800; color:var(--ink);
+    background:#fde68a; border:2px solid var(--ink); border-radius:999px;
+    padding:4px 11px; box-shadow:var(--shadow-sm);
+  }
+  h1 { font-size:28px; font-weight:900; margin:12px 0 2px; line-height:1.08; }
+  h2.sub { font-size:17px; font-weight:800; color:var(--sub); line-height:1.15; }
+  .conclusion {
+    background:var(--ink); color:#fdfcf7; border:2px solid var(--ink);
+    border-radius:14px; box-shadow:var(--shadow); padding:16px; margin:20px 0 24px;
+  }
+  .conclusion .tag { font-size:12.5px; font-weight:800; color:#fbbf24; margin-bottom:6px; }
+  .conclusion .body { font-size:14px; font-weight:600; line-height:1.6; }
+  .section { margin-bottom:28px; }
+  .sec-title { display:flex; align-items:flex-end; gap:12px; margin-bottom:16px; }
+  .sec-no { font-family:ui-monospace,Menlo,monospace; font-size:28px; font-weight:900; line-height:1; letter-spacing:-1px; }
+  .sec-h { font-size:19px; font-weight:900; line-height:1.1; }
+  .sec-s { font-size:12.5px; color:var(--sub); font-weight:600; margin-top:2px; }
+  .card { background:var(--card); border:2px solid var(--ink); border-radius:14px; box-shadow:var(--shadow); padding:16px; }
+  .card-sm { padding:14px; }
+  .chip {
+    display:inline-flex; align-items:center; gap:5px; font-size:12px; font-weight:800;
+    border:1.5px solid var(--ink); border-radius:999px; padding:3px 10px; white-space:nowrap;
+  }
+  .chip .dot { width:8px; height:8px; border-radius:999px; }
+  .grid3 { display:flex; flex-direction:column; gap:10px; }
+  .summary-card .row1 { display:flex; align-items:center; gap:8px; margin-bottom:6px; }
+  .summary-card .ic { font-size:18px; }
+  .summary-card .t { font-size:13.5px; font-weight:800; }
+  .summary-card .v { font-size:18px; font-weight:900; margin-bottom:5px; }
+  .summary-card .d { font-size:12px; color:var(--sub); font-weight:600; line-height:1.5; }
+  .ml-auto { margin-left:auto; }
+  .clean-row { padding:12px 0; }
+  .clean-row .head { display:flex; align-items:center; gap:8px; margin-bottom:8px; flex-wrap:wrap; }
+  .clean-row .name { font-weight:900; font-size:14px; }
+  .clean-row .lms { font-size:11px; font-weight:700; color:var(--sub); }
+  .bar { flex:1; height:16px; background:#efe9da; border:1.5px solid var(--ink); border-radius:999px; overflow:hidden; }
+  .bar > div { height:100%; border-right:1.5px solid var(--ink); }
+  .bar-wrap { display:flex; align-items:center; gap:8px; }
+  .bar-val { font-size:12.5px; font-weight:900; min-width:54px; text-align:right; }
+  .dashed { border-bottom:1.5px dashed #d6ccb5; }
+  .note { margin-top:12px; font-size:11.5px; color:var(--sub); font-weight:600; line-height:1.5; }
+  .price-row { display:flex; align-items:center; gap:8px; padding:9px 0; }
+  .price-row .rank { width:16px; font-weight:900; font-size:13px; }
+  .price-row .nm { width:78px; font-weight:800; font-size:13px; }
+  .price-row .pl { width:74px; text-align:right; font-weight:900; font-size:13px; }
+  .legend { display:flex; flex-wrap:wrap; gap:7px; margin-bottom:12px; }
+  .acc { background:var(--card); border:2px solid var(--ink); border-radius:14px; box-shadow:var(--shadow-sm); margin-bottom:10px; }
+  .acc.open { box-shadow:var(--shadow); }
+  .acc.untested { opacity:.82; }
+  .acc-btn {
+    width:100%; display:flex; align-items:center; gap:8px; padding:13px 14px;
+    background:transparent; border:none; cursor:pointer; text-align:left;
+    font-family:inherit; flex-wrap:wrap;
+  }
+  .acc-btn .arrow { font-size:14px; }
+  .acc-btn .nm { font-size:15px; font-weight:900; }
+  .acc-btn .tg { font-size:11px; font-weight:800; color:var(--sub); }
+  .acc-btn .chips { margin-left:auto; display:flex; gap:5px; flex-wrap:wrap; justify-content:flex-end; }
+  .acc-body { padding:0 14px 14px; border-top:1.5px dashed #d6ccb5; }
+  .spec-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:8px; margin:12px 0; }
+  .spec { background:var(--cream); border:1.5px solid var(--ink); border-radius:10px; padding:8px 10px; }
+  .spec .lbl { font-size:10.5px; font-weight:700; color:var(--sub); margin-bottom:4px; }
+  .spec .val { font-size:14px; font-weight:900; }
+  .login-box {
+    display:flex; align-items:flex-start; gap:7px; margin-bottom:10px;
+    background:#fef3c7; border:1.5px solid var(--ink); border-radius:10px; padding:9px 11px;
+  }
+  .login-box .lbl { font-size:10.5px; font-weight:800; color:#b45309; }
+  .login-box .txt { font-size:12px; font-weight:700; line-height:1.4; }
+  .memo { font-size:12.5px; font-weight:600; line-height:1.55; margin-bottom:12px; }
+  .link { display:inline-flex; align-items:center; gap:5px; font-size:12px; font-weight:800; color:var(--ink); text-decoration:none; border-bottom:2px solid #fbbf24; }
+  .limit-card .row1 { display:flex; align-items:center; gap:7px; margin-bottom:5px; }
+  .limit-card .ic { font-size:16px; }
+  .limit-card .t { font-size:13.5px; font-weight:900; }
+  .limit-card .d { font-size:12px; color:var(--sub); font-weight:600; line-height:1.55; }
+  .action-row { display:flex; gap:11px; padding:11px 0; }
+  .action-row .n { width:25px; height:25px; flex-shrink:0; border-radius:8px; background:#fde68a; border:2px solid var(--ink); display:flex; align-items:center; justify-content:center; font-weight:900; font-size:12.5px; }
+  .action-row .t { font-size:13.5px; font-weight:800; }
+  .action-row .d { font-size:12px; color:var(--sub); font-weight:600; margin-top:2px; }
+  footer { text-align:center; font-size:11px; color:#a8a29e; font-weight:700; margin-top:24px; }
+  @media (prefers-reduced-motion:reduce) { * { transition:none !important; } }
 </style>
 </head>
 <body>
-<div id="root"></div>
-<script type="text/babel">
-const B = { ink:"#1c1917", cream:"#fdfcf7", card:"#fffdf8", sub:"#78716c",
-  shadow:"4px 4px 0 0 #1c1917", shadowSm:"2px 2px 0 0 #1c1917" };
-const ST = {
+<div class="wrap" id="app"></div>
+<script>
+var ST = {
   best:{label:"최적",c:"#047857",bg:"#d1fae5",dot:"#059669"},
   ok:{label:"가능",c:"#1d4ed8",bg:"#dbeafe",dot:"#2563eb"},
   limited:{label:"부분",c:"#b45309",bg:"#fef3c7",dot:"#d97706"},
   risk:{label:"주의",c:"#be123c",bg:"#ffe4e6",dot:"#e11d48"},
   no:{label:"불가",c:"#be123c",bg:"#ffe4e6",dot:"#e11d48"},
-  unknown:{label:"미확인",c:"#57534e",bg:"#e7e5e4",dot:"#a8a29e"},
+  unknown:{label:"미확인",c:"#57534e",bg:"#e7e5e4",dot:"#a8a29e"}
 };
-
-const SITES = [
+var SITES = [
   { id:"joongang", name:"중앙사이버", url:"joongangcyber.com", tag:"🥇 실결제 최저",
     priceLabel:"72만", priceNum:720000, perSubject:"정가 15만→할인",
     credit:"ok", lms:"limited", lmsLabel:"iframe→HTML5", listeners:6, ratechange:false, autoVerdict:"limited",
@@ -60,206 +142,216 @@ const SITES = [
     priceLabel:"미조사", priceNum:9999999, perSubject:"—",
     credit:"unknown", lms:"unknown", lmsLabel:"미확인", listeners:null, ratechange:null, autoVerdict:"unknown",
     login:"미확인", tested:false,
-    memo:"다음 세션 처음부터 조사. 학점은행 인정 여부 먼저(❌면 탈락)." },
+    memo:"다음 세션 처음부터 조사. 학점은행 인정 여부 먼저(❌면 탈락)." }
 ];
-
-function Chip({status,text}) {
-  const s = ST[status]||ST.unknown;
-  return <span style={{display:"inline-flex",alignItems:"center",gap:5,fontSize:12,fontWeight:800,
-    color:s.c,background:s.bg,border:"1.5px solid "+B.ink,borderRadius:999,padding:"3px 10px",whiteSpace:"nowrap"}}>
-    <span style={{width:8,height:8,borderRadius:999,background:s.dot}}/>{text||s.label}</span>;
+function el(tag, attrs, children) {
+  var n = document.createElement(tag);
+  if (attrs) for (var k in attrs) {
+    if (k === "class") n.className = attrs[k];
+    else if (k === "style") n.style.cssText = attrs[k];
+    else if (k === "html") n.innerHTML = attrs[k];
+    else n.setAttribute(k, attrs[k]);
+  }
+  if (children) (Array.isArray(children)?children:[children]).forEach(function(c){
+    if (c == null) return;
+    n.appendChild(typeof c === "string" ? document.createTextNode(c) : c);
+  });
+  return n;
 }
-function SectionTitle({no,title,sub}) {
-  return <div style={{display:"flex",alignItems:"flex-end",gap:12,marginBottom:16}}>
-    <span style={{fontFamily:"ui-monospace,Menlo,monospace",fontSize:28,fontWeight:900,color:B.ink,lineHeight:1,letterSpacing:-1}}>{no}</span>
-    <div><div style={{fontSize:19,fontWeight:900,color:B.ink,lineHeight:1.1}}>{title}</div>
-    {sub&&<div style={{fontSize:12.5,color:B.sub,fontWeight:600,marginTop:2}}>{sub}</div>}</div></div>;
+function chip(status, text) {
+  var s = ST[status] || ST.unknown;
+  var c = el("span", { "class":"chip", style:"color:"+s.c+";background:"+s.bg });
+  c.appendChild(el("span", { "class":"dot", style:"background:"+s.dot }));
+  c.appendChild(document.createTextNode(text || s.label));
+  return c;
 }
-function Card({children,style}) {
-  return <div style={Object.assign({background:B.card,border:"2px solid "+B.ink,borderRadius:14,boxShadow:B.shadow,padding:16},style)}>{children}</div>;
+function secTitle(no, title, sub) {
+  var d = el("div", { "class":"sec-title" });
+  d.appendChild(el("span", { "class":"sec-no" }, no));
+  var box = el("div");
+  box.appendChild(el("div", { "class":"sec-h" }, title));
+  if (sub) box.appendChild(el("div", { "class":"sec-s" }, sub));
+  d.appendChild(box);
+  return d;
 }
-function CleanlinessBar({listeners}) {
-  if(listeners===null) return <span style={{fontSize:12,color:B.sub,fontWeight:700}}>미측정</span>;
-  const pct = Math.max(6, 100 - Math.min(listeners,20)/20*100);
-  const color = listeners===0?"#6ee7b7":listeners<10?"#93c5fd":"#fcd9a8";
-  return <div style={{display:"flex",alignItems:"center",gap:8}}>
-    <div style={{flex:1,height:16,background:"#efe9da",border:"1.5px solid "+B.ink,borderRadius:999,overflow:"hidden"}}>
-      <div style={{width:pct+"%",height:"100%",background:color,borderRight:"1.5px solid "+B.ink}}/></div>
-    <span style={{fontSize:12.5,fontWeight:900,color:B.ink,minWidth:54,textAlign:"right"}}>{listeners===0?"0개 🏆":listeners+"개"}</span></div>;
+function cleanBar(listeners) {
+  if (listeners === null) return el("span", { style:"font-size:12px;color:var(--sub);font-weight:700" }, "미측정");
+  var pct = Math.max(6, 100 - Math.min(listeners,20)/20*100);
+  var color = listeners===0 ? "#6ee7b7" : listeners<10 ? "#93c5fd" : "#fcd9a8";
+  var wrap = el("div", { "class":"bar-wrap" });
+  var bar = el("div", { "class":"bar" });
+  bar.appendChild(el("div", { style:"width:"+pct+"%;background:"+color }));
+  wrap.appendChild(bar);
+  wrap.appendChild(el("span", { "class":"bar-val" }, listeners===0 ? "0개 🏆" : listeners+"개"));
+  return wrap;
 }
-
-function App() {
-  const [open,setOpen] = React.useState("joongang");
-  const tested = SITES.filter(s=>s.tested);
-  const priceRank = SITES.filter(s=>s.priceNum<900000 && s.id!=="hackers").sort((a,b)=>a.priceNum-b.priceNum);
-
-  return <div style={{minHeight:"100vh",padding:"24px 14px 48px"}}>
-    <div style={{maxWidth:560,margin:"0 auto"}}>
-
-      <div style={{marginBottom:20}}>
-        <span style={{display:"inline-block",fontSize:11.5,fontWeight:800,color:B.ink,background:"#fde68a",
-          border:"2px solid "+B.ink,borderRadius:999,padding:"4px 11px",boxShadow:B.shadowSm}}>🎓 사회복지사 2급 · S1 ch2 · LMS 실측</span>
-        <h1 style={{fontSize:28,fontWeight:900,color:B.ink,margin:"12px 0 2px",lineHeight:1.08}}>F12로 직접 찍은 자동화 비교</h1>
-        <h2 style={{fontSize:17,fontWeight:800,color:B.sub,margin:0,lineHeight:1.15}}>3곳 실측 완료 · 가설 아닌 실제 데이터</h2>
-      </div>
-
-      <div style={{background:B.ink,color:"#fdfcf7",border:"2px solid "+B.ink,borderRadius:14,boxShadow:B.shadow,padding:16,marginBottom:24}}>
-        <div style={{fontSize:12.5,fontWeight:800,color:"#fbbf24",marginBottom:6}}>📌 실측 결론 (v1에서 2개 뒤집힘)</div>
-        <div style={{fontSize:14,fontWeight:600,lineHeight:1.6}}>
-          <b style={{color:"#6ee7b7"}}>가격</b>: 중앙 72만이 실결제 최저. 메가 86.7만 프로모션.
-          <b style={{color:"#6ee7b7"}}> 영상제어</b>: <b>메가가 감지 리스너 0개로 가장 깨끗</b>.
-          <b style={{color:"#fbbf24"}}> 단 3곳 다 ⚠️ 부분</b> — 진짜 관문은 로그인/출석. 진도저장은 정식 강의실에서만 확인 가능.
-          <b style={{color:"#fda4af"}}> 17과목 풀 → 3학기 → ~2028 상반기 불변.</b>
-        </div>
-      </div>
-
-      <div style={{marginBottom:28}}>
-        <SectionTitle no="01" title="실측 3줄 요약" sub="가설 말고 직접 찍은 것"/>
-        <div style={{display:"flex",flexDirection:"column",gap:10}}>
-          {[
-            {ic:"💸",t:"최저가",v:"중앙 72만",d:"정가 240만→70%할인. 메가 86.7만 프로모션 2위",s:"best"},
-            {ic:"⚡",t:"영상제어 최청정",v:"메가 리스너 0개",d:"배속·건너뛰기·탭이탈 전부 감지 안 함",s:"best"},
-            {ic:"📅",t:"최단 취득",v:"3학기·2028 상반기",d:"17과목 풀 / 학기 8과목 상한 → 물리적 바닥",s:"limited"},
-          ].map((x,i)=>(
-            <Card key={i} style={{padding:14}}>
-              <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:6}}>
-                <span style={{fontSize:18}}>{x.ic}</span>
-                <span style={{fontSize:13.5,fontWeight:800,color:B.ink}}>{x.t}</span>
-                <span style={{marginLeft:"auto"}}><Chip status={x.s}/></span></div>
-              <div style={{fontSize:18,fontWeight:900,color:B.ink,marginBottom:5}}>{x.v}</div>
-              <div style={{fontSize:12,color:B.sub,fontWeight:600,lineHeight:1.5}}>{x.d}</div>
-            </Card>))}
-        </div>
-      </div>
-
-      <div style={{marginBottom:28}}>
-        <SectionTitle no="02" title="영상제어 청정도" sub="리스너 적을수록 자동화 유리 (실측 3곳)"/>
-        <Card>
-          {tested.map((s,i)=>(
-            <div key={s.id} style={{padding:"12px 0",borderBottom:i<tested.length-1?"1.5px dashed #d6ccb5":"none"}}>
-              <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:8,flexWrap:"wrap"}}>
-                <span style={{fontWeight:900,fontSize:14,color:B.ink}}>{s.name}</span>
-                <span style={{fontSize:11,fontWeight:700,color:B.sub}}>{s.lmsLabel}</span>
-                <span style={{marginLeft:"auto"}}><Chip status={s.ratechange?"limited":"best"} text={s.ratechange?"ratechange ⚠️":"ratechange ✗"}/></span>
-              </div>
-              <CleanlinessBar listeners={s.listeners}/>
-            </div>))}
-          <div style={{marginTop:12,fontSize:11.5,color:B.sub,fontWeight:600,lineHeight:1.5}}>
-            ※ <b>메가 0개</b>=getEventListeners(video) 완전 빔. <b>중앙 6개</b>=ratechange 없어 배속 안 막음. <b>배움 17개</b>=ratechange 있으나 맛보기 404로 실제 작동 미확인.
-          </div>
-        </Card>
-      </div>
-
-      <div style={{marginBottom:28}}>
-        <SectionTitle no="03" title="실결제 가격 랭킹" sub="17과목 기준 (해커스·유비온 제외)"/>
-        <Card>
-          {priceRank.map((s,i)=>{
-            const w = Math.max(8,(s.priceNum/882400)*100);
-            const cheap = i===0;
-            return <div key={s.id} style={{display:"flex",alignItems:"center",gap:8,padding:"9px 0",borderBottom:i<priceRank.length-1?"1.5px dashed #d6ccb5":"none"}}>
-              <span style={{width:16,fontWeight:900,fontSize:13,color:cheap?"#047857":B.sub}}>{i+1}</span>
-              <span style={{width:78,fontWeight:800,fontSize:13,color:B.ink}}>{s.name}</span>
-              <div style={{flex:1,height:18,background:"#efe9da",border:"1.5px solid "+B.ink,borderRadius:999,overflow:"hidden"}}>
-                <div style={{width:w+"%",height:"100%",background:cheap?"#6ee7b7":"#fcd9a8",borderRight:"1.5px solid "+B.ink}}/></div>
-              <span style={{width:74,textAlign:"right",fontWeight:900,fontSize:13,color:B.ink}}>{s.priceLabel}</span>
-            </div>;
-          })}
-          <div style={{marginTop:10,fontSize:11.5,color:B.sub,fontWeight:600,lineHeight:1.5}}>
-            ※ 메가 86.7만=여름초특가(6/24 마감). 중앙·메가 모두 상담 쿠폰 변수 있어 결제 직전 재확인. 실습세미나·기관비·행정비 별도.
-          </div>
-        </Card>
-      </div>
-
-      <div style={{marginBottom:28}}>
-        <SectionTitle no="04" title="교육원별 상세" sub="누르면 펼쳐져요 · 실측 3 + 미조사 3"/>
-        <div style={{display:"flex",flexWrap:"wrap",gap:7,marginBottom:12}}>
-          {["best","ok","limited","risk","unknown"].map(k=><Chip key={k} status={k} text={ST[k].label}/>)}
-        </div>
-        <div style={{display:"flex",flexDirection:"column",gap:10}}>
-          {SITES.map(s=>{
-            const isOpen = open===s.id;
-            return <div key={s.id} style={{background:B.card,border:"2px solid "+B.ink,borderRadius:14,boxShadow:isOpen?B.shadow:B.shadowSm,opacity:s.tested?1:0.82}}>
-              <button onClick={()=>setOpen(isOpen?null:s.id)}
-                style={{width:"100%",display:"flex",alignItems:"center",gap:8,padding:"13px 14px",background:"transparent",border:"none",cursor:"pointer",textAlign:"left",fontFamily:"inherit",flexWrap:"wrap"}}>
-                <span style={{fontSize:14}}>{isOpen?"▼":"▶"}</span>
-                <span style={{fontSize:15,fontWeight:900,color:B.ink}}>{s.name}</span>
-                <span style={{fontSize:11,fontWeight:800,color:B.sub}}>{s.tag}</span>
-                <span style={{marginLeft:"auto",display:"flex",gap:5,flexWrap:"wrap",justifyContent:"flex-end"}}>
-                  <Chip status="ok" text={"💸 "+s.priceLabel}/>
-                  <Chip status={s.autoVerdict} text={s.tested?(s.autoVerdict==="limited"?"⚠️ 부분":ST[s.autoVerdict].label):"자동화 ?"}/>
-                </span>
-              </button>
-              {isOpen && <div style={{padding:"0 14px 14px",borderTop:"1.5px dashed #d6ccb5"}}>
-                <div style={{display:"grid",gridTemplateColumns:"repeat(2,1fr)",gap:8,margin:"12px 0"}}>
-                  <div style={{background:B.cream,border:"1.5px solid "+B.ink,borderRadius:10,padding:"8px 10px"}}>
-                    <div style={{fontSize:10.5,fontWeight:700,color:B.sub,marginBottom:4}}>학점은행</div><Chip status={s.credit}/></div>
-                  <div style={{background:B.cream,border:"1.5px solid "+B.ink,borderRadius:10,padding:"8px 10px"}}>
-                    <div style={{fontSize:10.5,fontWeight:700,color:B.sub,marginBottom:4}}>LMS</div><Chip status={s.lms} text={s.lmsLabel}/></div>
-                  <div style={{background:B.cream,border:"1.5px solid "+B.ink,borderRadius:10,padding:"8px 10px"}}>
-                    <div style={{fontSize:10.5,fontWeight:700,color:B.sub,marginBottom:4}}>감지 리스너</div>
-                    <span style={{fontSize:14,fontWeight:900,color:B.ink}}>{s.listeners===null?"미측정":s.listeners+"개"}</span></div>
-                  <div style={{background:B.cream,border:"1.5px solid "+B.ink,borderRadius:10,padding:"8px 10px"}}>
-                    <div style={{fontSize:10.5,fontWeight:700,color:B.sub,marginBottom:4}}>과목당</div>
-                    <span style={{fontSize:12.5,fontWeight:800,color:B.ink}}>{s.perSubject}</span></div>
-                </div>
-                <div style={{display:"flex",alignItems:"flex-start",gap:7,marginBottom:10,background:"#fef3c7",border:"1.5px solid "+B.ink,borderRadius:10,padding:"9px 11px"}}>
-                  <span style={{fontSize:14,marginTop:1}}>🔒</span>
-                  <div><div style={{fontSize:10.5,fontWeight:800,color:"#b45309"}}>로그인 장벽 (진짜 관문)</div>
-                  <div style={{fontSize:12,fontWeight:700,color:B.ink,lineHeight:1.4}}>{s.login}</div></div>
-                </div>
-                <div style={{fontSize:12.5,color:B.ink,fontWeight:600,lineHeight:1.55,marginBottom:12}}>{s.memo}</div>
-                <a href={"https://"+s.url} target="_blank" rel="noreferrer"
-                  style={{display:"inline-flex",alignItems:"center",gap:5,fontSize:12,fontWeight:800,color:B.ink,textDecoration:"none",borderBottom:"2px solid #fbbf24"}}>🔗 {s.url}</a>
-              </div>}
-            </div>;
-          })}
-        </div>
-      </div>
-
-      <div style={{marginBottom:28}}>
-        <SectionTitle no="05" title="냉정한 한계점" sub="실측했어도 아직 모르는 것"/>
-        <div style={{display:"flex",flexDirection:"column",gap:10}}>
-          {[
-            {ic:"📊",t:"진도저장은 3곳 다 미확인",d:"맛보기는 부모페이지 연결이 끊겨 Network 측정 불가. 정식 로그인 강의실에서 Fetch/XHR 확인해야 최종 ✅/❌."},
-            {ic:"🔒",t:"영상 깨끗 ≠ 자동화 가능",d:"메가는 영상 리스너 0개지만 로그인=IP+생체/OTP. 영상제어보다 로그인/출석이 진짜 관문."},
-            {ic:"⚠️",t:"배움은 실측 자체가 안 됨",d:"맛보기 소스 404로 영상이 안 돌아감. ratechange 17개도 실제 막는지 미확인. 정식강의 재검증 필수."},
-            {ic:"❓",t:"아직 3곳 남음",d:"해커스·Kstudy·유비온 미조사. 해커스 9,700원 함정 + 유비온 학점은행 인정부터 확인."},
-          ].map((x,i)=>(
-            <Card key={i} style={{padding:13}}>
-              <div style={{display:"flex",alignItems:"center",gap:7,marginBottom:5}}>
-                <span style={{fontSize:16}}>{x.ic}</span>
-                <span style={{fontSize:13.5,fontWeight:900,color:B.ink}}>{x.t}</span></div>
-              <div style={{fontSize:12,color:B.sub,fontWeight:600,lineHeight:1.55}}>{x.d}</div>
-            </Card>))}
-        </div>
-      </div>
-
-      <div style={{marginBottom:22}}>
-        <SectionTitle no="06" title="다음 세션 할 일" sub="순서대로"/>
-        <Card>
-          {[
-            ["해커스 F12 + 9,700원 함정 확인","7과목↑·최대80% 조건 / paranhanul.net"],
-            ["Kstudy F12","출석률 80%+시험 60분 / kstudy.co.kr"],
-            ["유비온 처음부터 조사","학점은행 인정 먼저(❌면 탈락) / iubion.com"],
-            ["최종 비교표 → GitHub silvercare 푸시","6곳 다 모인 뒤 최종 갱신"],
-            ["기관 확정 → 2026 2학기 8과목 신청","최저가×영상청정×로그인난이도 교차점"],
-          ].map(([t,d],i)=>(
-            <div key={i} style={{display:"flex",gap:11,padding:"11px 0",borderBottom:i<4?"1.5px dashed #d6ccb5":"none"}}>
-              <span style={{width:25,height:25,flexShrink:0,borderRadius:8,background:"#fde68a",border:"2px solid "+B.ink,display:"flex",alignItems:"center",justifyContent:"center",fontWeight:900,fontSize:12.5}}>{i+1}</span>
-              <div><div style={{fontSize:13.5,fontWeight:800,color:B.ink}}>{t}</div>
-              <div style={{fontSize:12,color:B.sub,fontWeight:600,marginTop:2}}>{d}</div></div>
-            </div>))}
-        </Card>
-      </div>
-
-      <div style={{textAlign:"center",fontSize:11,color:"#a8a29e",fontWeight:700,marginTop:24}}>
-        🥈 사회복지사 2급 · Season 1 Chapter 2 · LMS 자동화 실측 · 배움·중앙·메가 완료
-      </div>
-    </div>
-  </div>;
+var app = document.getElementById("app");
+var openId = "joongang";
+function render() {
+  app.innerHTML = "";
+  var head = el("div", { style:"margin-bottom:20px" });
+  head.appendChild(el("span", { "class":"badge" }, "🎓 사회복지사 2급 · S1 ch2 · LMS 실측"));
+  head.appendChild(el("h1", null, "F12로 직접 찍은 자동화 비교"));
+  head.appendChild(el("h2", { "class":"sub" }, "3곳 실측 완료 · 가설 아닌 실제 데이터"));
+  app.appendChild(head);
+  var con = el("div", { "class":"conclusion" });
+  con.appendChild(el("div", { "class":"tag" }, "📌 실측 결론 (v1에서 2개 뒤집힘)"));
+  con.appendChild(el("div", { "class":"body", html:
+    '<b style="color:#6ee7b7">가격</b>: 중앙 72만이 실결제 최저. 메가 86.7만 프로모션. '
+    + '<b style="color:#6ee7b7">영상제어</b>: <b>메가가 감지 리스너 0개로 가장 깨끗</b>. '
+    + '<b style="color:#fbbf24">단 3곳 다 ⚠️ 부분</b> — 진짜 관문은 로그인/출석. 진도저장은 정식 강의실에서만 확인 가능. '
+    + '<b style="color:#fda4af">17과목 풀 → 3학기 → ~2028 상반기 불변.</b>' }));
+  app.appendChild(con);
+  var s1 = el("div", { "class":"section" });
+  s1.appendChild(secTitle("01", "실측 3줄 요약", "가설 말고 직접 찍은 것"));
+  var g1 = el("div", { "class":"grid3" });
+  [
+    {ic:"💸",t:"최저가",v:"중앙 72만",d:"정가 240만→70%할인. 메가 86.7만 프로모션 2위",s:"best"},
+    {ic:"⚡",t:"영상제어 최청정",v:"메가 리스너 0개",d:"배속·건너뛰기·탭이탈 전부 감지 안 함",s:"best"},
+    {ic:"📅",t:"최단 취득",v:"3학기·2028 상반기",d:"17과목 풀 / 학기 8과목 상한 → 물리적 바닥",s:"limited"}
+  ].forEach(function(x){
+    var c = el("div", { "class":"card card-sm summary-card" });
+    var r = el("div", { "class":"row1" });
+    r.appendChild(el("span", { "class":"ic" }, x.ic));
+    r.appendChild(el("span", { "class":"t" }, x.t));
+    var sp = el("span", { "class":"ml-auto" }); sp.appendChild(chip(x.s)); r.appendChild(sp);
+    c.appendChild(r);
+    c.appendChild(el("div", { "class":"v" }, x.v));
+    c.appendChild(el("div", { "class":"d" }, x.d));
+    g1.appendChild(c);
+  });
+  s1.appendChild(g1);
+  app.appendChild(s1);
+  var s2 = el("div", { "class":"section" });
+  s2.appendChild(secTitle("02", "영상제어 청정도", "리스너 적을수록 자동화 유리 (실측 3곳)"));
+  var c2 = el("div", { "class":"card" });
+  var testedSites = SITES.filter(function(s){ return s.tested; });
+  testedSites.forEach(function(s, i){
+    var row = el("div", { "class":"clean-row" + (i < testedSites.length-1 ? " dashed" : "") });
+    var h = el("div", { "class":"head" });
+    h.appendChild(el("span", { "class":"name" }, s.name));
+    h.appendChild(el("span", { "class":"lms" }, s.lmsLabel));
+    var sp = el("span", { "class":"ml-auto" });
+    sp.appendChild(chip(s.ratechange ? "limited" : "best", s.ratechange ? "ratechange ⚠️" : "ratechange ✗"));
+    h.appendChild(sp);
+    row.appendChild(h);
+    row.appendChild(cleanBar(s.listeners));
+    c2.appendChild(row);
+  });
+  c2.appendChild(el("div", { "class":"note", html:
+    '※ <b>메가 0개</b>=getEventListeners(video) 완전 빔. <b>중앙 6개</b>=ratechange 없어 배속 안 막음. <b>배움 17개</b>=ratechange 있으나 맛보기 404로 실제 작동 미확인.' }));
+  s2.appendChild(c2);
+  app.appendChild(s2);
+  var s3 = el("div", { "class":"section" });
+  s3.appendChild(secTitle("03", "실결제 가격 랭킹", "17과목 기준 (해커스·유비온 제외)"));
+  var c3 = el("div", { "class":"card" });
+  var pr = SITES.filter(function(s){ return s.priceNum < 900000 && s.id !== "hackers"; })
+    .sort(function(a,b){ return a.priceNum - b.priceNum; });
+  pr.forEach(function(s, i){
+    var w = Math.max(8, (s.priceNum/882400)*100);
+    var cheap = i === 0;
+    var row = el("div", { "class":"price-row" + (i < pr.length-1 ? " dashed" : "") });
+    row.appendChild(el("span", { "class":"rank", style:"color:"+(cheap?"#047857":"var(--sub)") }, String(i+1)));
+    row.appendChild(el("span", { "class":"nm" }, s.name));
+    var bar = el("div", { "class":"bar" });
+    bar.appendChild(el("div", { style:"width:"+w+"%;background:"+(cheap?"#6ee7b7":"#fcd9a8") }));
+    row.appendChild(bar);
+    row.appendChild(el("span", { "class":"pl" }, s.priceLabel));
+    c3.appendChild(row);
+  });
+  c3.appendChild(el("div", { "class":"note" }, "※ 메가 86.7만=여름초특가(6/24 마감). 중앙·메가 모두 상담 쿠폰 변수 있어 결제 직전 재확인. 실습세미나·기관비·행정비 별도."));
+  s3.appendChild(c3);
+  app.appendChild(s3);
+  var s4 = el("div", { "class":"section" });
+  s4.appendChild(secTitle("04", "교육원별 상세", "누르면 펼쳐져요 · 실측 3 + 미조사 3"));
+  var leg = el("div", { "class":"legend" });
+  ["best","ok","limited","risk","unknown"].forEach(function(k){ leg.appendChild(chip(k, ST[k].label)); });
+  s4.appendChild(leg);
+  SITES.forEach(function(s){
+    var isOpen = openId === s.id;
+    var acc = el("div", { "class":"acc" + (isOpen ? " open" : "") + (s.tested ? "" : " untested") });
+    var btn = el("button", { "class":"acc-btn" });
+    btn.appendChild(el("span", { "class":"arrow" }, isOpen ? "▼" : "▶"));
+    btn.appendChild(el("span", { "class":"nm" }, s.name));
+    btn.appendChild(el("span", { "class":"tg" }, s.tag));
+    var chips = el("span", { "class":"chips" });
+    chips.appendChild(chip("ok", "💸 " + s.priceLabel));
+    chips.appendChild(chip(s.autoVerdict, s.tested ? (s.autoVerdict==="limited" ? "⚠️ 부분" : ST[s.autoVerdict].label) : "자동화 ?"));
+    btn.appendChild(chips);
+    btn.onclick = function(){ openId = isOpen ? null : s.id; render(); };
+    acc.appendChild(btn);
+    if (isOpen) {
+      var body = el("div", { "class":"acc-body" });
+      var sg = el("div", { "class":"spec-grid" });
+      var specs = [
+        ["학점은행", chip(s.credit)],
+        ["LMS", chip(s.lms, s.lmsLabel)],
+        ["감지 리스너", el("span", { "class":"val" }, s.listeners===null ? "미측정" : s.listeners+"개")],
+        ["과목당", el("span", { style:"font-size:12.5px;font-weight:800" }, s.perSubject)]
+      ];
+      specs.forEach(function(sp){
+        var box = el("div", { "class":"spec" });
+        box.appendChild(el("div", { "class":"lbl" }, sp[0]));
+        box.appendChild(sp[1]);
+        sg.appendChild(box);
+      });
+      body.appendChild(sg);
+      var lb = el("div", { "class":"login-box" });
+      lb.appendChild(el("span", { style:"font-size:14px;margin-top:1px" }, "🔒"));
+      var lbx = el("div");
+      lbx.appendChild(el("div", { "class":"lbl" }, "로그인 장벽 (진짜 관문)"));
+      lbx.appendChild(el("div", { "class":"txt" }, s.login));
+      lb.appendChild(lbx);
+      body.appendChild(lb);
+      body.appendChild(el("div", { "class":"memo" }, s.memo));
+      body.appendChild(el("a", { "class":"link", href:"https://"+s.url, target:"_blank", rel:"noreferrer" }, "🔗 " + s.url));
+      acc.appendChild(body);
+    }
+    s4.appendChild(acc);
+  });
+  app.appendChild(s4);
+  var s5 = el("div", { "class":"section" });
+  s5.appendChild(secTitle("05", "냉정한 한계점", "실측했어도 아직 모르는 것"));
+  var g5 = el("div", { "class":"grid3" });
+  [
+    {ic:"📊",t:"진도저장은 3곳 다 미확인",d:"맛보기는 부모페이지 연결이 끊겨 Network 측정 불가. 정식 로그인 강의실에서 Fetch/XHR 확인해야 최종 ✅/❌."},
+    {ic:"🔒",t:"영상 깨끗 ≠ 자동화 가능",d:"메가는 영상 리스너 0개지만 로그인=IP+생체/OTP. 영상제어보다 로그인/출석이 진짜 관문."},
+    {ic:"⚠️",t:"배움은 실측 자체가 안 됨",d:"맛보기 소스 404로 영상이 안 돌아감. ratechange 17개도 실제 막는지 미확인. 정식강의 재검증 필수."},
+    {ic:"❓",t:"아직 3곳 남음",d:"해커스·Kstudy·유비온 미조사. 해커스 9,700원 함정 + 유비온 학점은행 인정부터 확인."}
+  ].forEach(function(x){
+    var c = el("div", { "class":"card card-sm limit-card" });
+    var r = el("div", { "class":"row1" });
+    r.appendChild(el("span", { "class":"ic" }, x.ic));
+    r.appendChild(el("span", { "class":"t" }, x.t));
+    c.appendChild(r);
+    c.appendChild(el("div", { "class":"d" }, x.d));
+    g5.appendChild(c);
+  });
+  s5.appendChild(g5);
+  app.appendChild(s5);
+  var s6 = el("div", { "class":"section" });
+  s6.appendChild(secTitle("06", "다음 세션 할 일", "순서대로"));
+  var c6 = el("div", { "class":"card" });
+  [
+    ["해커스 F12 + 9,700원 함정 확인","7과목↑·최대80% 조건 / paranhanul.net"],
+    ["Kstudy F12","출석률 80%+시험 60분 / kstudy.co.kr"],
+    ["유비온 처음부터 조사","학점은행 인정 먼저(❌면 탈락) / iubion.com"],
+    ["최종 비교표 → GitHub silvercare 푸시","6곳 다 모인 뒤 최종 갱신"],
+    ["기관 확정 → 2026 2학기 8과목 신청","최저가×영상청정×로그인난이도 교차점"]
+  ].forEach(function(a, i, arr){
+    var row = el("div", { "class":"action-row" + (i < arr.length-1 ? " dashed" : "") });
+    row.appendChild(el("span", { "class":"n" }, String(i+1)));
+    var box = el("div");
+    box.appendChild(el("div", { "class":"t" }, a[0]));
+    box.appendChild(el("div", { "class":"d" }, a[1]));
+    row.appendChild(box);
+    c6.appendChild(row);
+  });
+  s6.appendChild(c6);
+  app.appendChild(s6);
+  app.appendChild(el("footer", null, "🥈 사회복지사 2급 · Season 1 Chapter 2 · LMS 자동화 실측 · 배움·중앙·메가 완료"));
 }
-
-ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
+render();
 </script>
 </body>
 </html>
