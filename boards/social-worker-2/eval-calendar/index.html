@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>사복2급 · 노인+청소년복지론 평가 캘린더</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" />
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" rel="stylesheet" />
+<script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<style>
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body { margin: 0; font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    background: linear-gradient(160deg,#fdfcf7 0%,#ebe4d3 100%); color:#1c1917; }
+  button { font-family: inherit; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const { useState, useMemo } = React;
+
+const B = { ink:"#1c1917", cream:"#fdfcf7", card:"#fffdf8", sub:"#78716c",
+  shadow:"4px 4px 0 0 #1c1917", shadowSm:"2px 2px 0 0 #1c1917" };
+const ST = {
+  best:    { c:"#047857", bg:"#d1fae5", dot:"#059669" },
+  ok:      { c:"#1d4ed8", bg:"#dbeafe", dot:"#2563eb" },
+  limited: { c:"#b45309", bg:"#fef3c7", dot:"#d97706" },
+  risk:    { c:"#be123c", bg:"#ffe4e6", dot:"#e11d48" },
+};
+const EV = { quiz:ST.ok, quiz2:ST.ok, mid:ST.risk, final:ST.risk };
+
+const WEEKS = [
+  { wk:1,  range:"06.25 ~ 07.08", old:"OT · 노인과 노화의 이해", you:"청소년의 이해 1·2", event:null },
+  { wk:2,  range:"07.02 ~ 07.15", old:"노화의 사회적 이해", you:"청소년 발달이론 · 복지 개념", event:null },
+  { wk:3,  range:"07.09 ~ 07.22", old:"노인복지 기능·역사", you:"복지 발전과정 · 특성과 원칙", event:null },
+  { wk:4,  range:"07.16 ~ 07.29", old:"노인복지 원칙·법", you:"개별상담 · 개입과정", event:null },
+  { wk:5,  range:"07.23 ~ 08.05", old:"소득실태·빈곤", you:"집단상담 · 집단상담 과정", event:null },
+  { wk:6,  range:"07.30 ~ 08.12", old:"소득보장정책", you:"자원봉사 · 수련활동", event:"quiz", evLabel:"퀴즈1", deadline:"08.12" },
+  { wk:7,  range:"08.06 ~ 08.19", old:"고용 · 건강·의료보장", you:"문화활동 · 관련법·행정", event:null },
+  { wk:8,  range:"≈ 08.13 ~ 08.19", old:"장기요양 · 주거", you:"(중간 범위 정리)", event:"mid", evLabel:"중간고사", deadline:"8주차" },
+  { wk:9,  range:"08.20 ~ 09.02", old:"사회참여·관계(1)", you:"청소년복지 정책 · 비행", event:null },
+  { wk:10, range:"08.27 ~ 09.09", old:"사회참여·관계(2) · 실천과정", you:"시설보호 · 가정 밖", event:null },
+  { wk:11, range:"09.03 ~ 09.16", old:"상담 · 사례관리(1)", you:"학교폭력 · 학교 밖", event:"quiz2", evLabel:"퀴즈2", deadline:"09.16" },
+  { wk:12, range:"09.10 ~ 09.23", old:"사례관리(2)", you:"약물남용 · 성착취피해", event:null },
+  { wk:13, range:"09.17 ~ 09.30", old:"노인 인권실천", you:"인터넷 과다사용 1·2", event:null, overlap:true },
+  { wk:14, range:"09.24 ~ 10.07", old:"죽음·호스피스 · 노인의 성 · 재혼/이혼", you:"복지의 과제와 전망 1·2", event:null, overlap:true },
+  { wk:15, range:"≈ 10.08 ~ 10.14", old:"고령친화산업", you:"(기말 범위 정리)", event:"final", evLabel:"기말고사", deadline:"15주차" },
+];
+
+const MILESTONES = [
+  { name:"퀴즈1", wk:"6주", date:"~08.12", weight:"퀴즈 5%", risk:false, note:"두 과목 같은 주 마감" },
+  { name:"중간고사", wk:"8주", date:"≈08월 셋째주", weight:"25% · 필수", risk:true, note:"미응시 시 즉시 F" },
+  { name:"퀴즈2", wk:"11주", date:"~09.16", weight:"퀴즈 5%", risk:false, note:"필수 6과목 직전" },
+  { name:"기말고사", wk:"15주", date:"≈10월 초중순", weight:"25% · 필수", risk:true, note:"미응시 시 즉시 F" },
+];
+
+function Pill({ st, children }) {
+  return <span style={{ display:"inline-flex", alignItems:"center", gap:5, fontSize:11.5, fontWeight:800,
+    color:st.c, background:st.bg, border:`2px solid ${B.ink}`, borderRadius:7, padding:"2px 8px", whiteSpace:"nowrap" }}>
+    <span style={{ width:8, height:8, borderRadius:99, background:st.dot, display:"inline-block" }} />{children}</span>;
+}
+function SectionTitle({ no, kr, en }) {
+  return <div style={{ display:"flex", alignItems:"baseline", gap:12, marginBottom:16 }}>
+    <span style={{ fontSize:13, fontWeight:900, color:B.cream, background:B.ink, padding:"3px 9px", borderRadius:6, letterSpacing:1 }}>{no}</span>
+    <div><div style={{ fontSize:20, fontWeight:900, lineHeight:1.1 }}>{kr}</div>
+    <div style={{ fontSize:12, fontWeight:700, color:B.sub, letterSpacing:0.5 }}>{en}</div></div></div>;
+}
+
+const KEY = "silvercare_eval_cal_done";
+const loadDone = () => { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch(e){ return {}; } };
+
+function App() {
+  const [open, setOpen] = useState({});
+  const [done, setDone] = useState(loadDone());
+  const save = (d) => { setDone(d); try { localStorage.setItem(KEY, JSON.stringify(d)); } catch(e){} };
+  const toggle = (wk) => setOpen(o => ({ ...o, [wk]: !o[wk] }));
+  const check = (wk) => save({ ...done, [wk]: !done[wk] });
+
+  const prog = useMemo(() => {
+    const cnt = WEEKS.filter(w => done[w.wk]).length;
+    return { cnt, total: WEEKS.length, pct: Math.round(cnt/WEEKS.length*100) };
+  }, [done]);
+
+  const cardBase = { background:B.card, border:`2px solid ${B.ink}`, borderRadius:12, boxShadow:B.shadow, padding:18 };
+
+  return (
+    <div style={{ minHeight:"100vh", padding:"26px 14px 60px" }}>
+      <div style={{ maxWidth:760, margin:"0 auto" }}>
+
+        <a href="../../../#/cert/sw2" style={{ display:"inline-block", textDecoration:"none",
+          color:B.ink, background:B.card, border:`2px solid ${B.ink}`, borderRadius:10,
+          boxShadow:B.shadowSm, padding:"7px 14px", fontSize:13, fontWeight:800, marginBottom:18 }}>← 사회복지사 2급</a>
+
+        <div style={{ marginBottom:22 }}>
+          <div style={{ fontSize:12.5, fontWeight:800, color:B.sub, marginBottom:8 }}>📅 사회복지사 2급 · 1학기차 선택 2과목</div>
+          <h1 style={{ fontSize:27, fontWeight:900, margin:0, lineHeight:1.1 }}>주차별 평가 마감 캘린더</h1>
+          <p style={{ fontSize:13, color:B.sub, fontWeight:600, margin:"8px 0 0" }}>
+            노인복지론 · 청소년복지론 — 둘 다 <b style={{ color:B.ink }}>2026-06-25 시작</b> / 15주 / 메가원격</p>
+        </div>
+
+        <div style={{ ...cardBase, background:"#fffbeb", marginBottom:22 }}>
+          <div style={{ fontSize:15, fontWeight:900, marginBottom:10 }}>🎯 결론 먼저</div>
+          <p style={{ fontSize:14, fontWeight:600, lineHeight:1.6, margin:0 }}>
+            두 과목 일정이 <b>완전히 동일</b>해서 <b style={{ color:"#be123c" }}>퀴즈·중간·기말이 같은 주에 2배로</b> 몰린다.
+            진짜 위험한 건 <b style={{ color:"#be123c" }}>중간(8주)·기말(15주)</b> — 둘 중 하나만 빠져도 그 과목은 즉시 F.
+            그리고 <b>9월 중순~10월 초</b>가 막바지 평가 + 필수 6과목(9/17 시작)이 겹치는 <b>최대 부하 구간</b>.</p>
+        </div>
+
+        <div style={{ marginBottom:26 }}>
+          <SectionTitle no="01" kr="놓치면 안 되는 4개 마일스톤" en="KEY EVALUATION DEADLINES" />
+          <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fit,minmax(155px,1fr))", gap:12 }}>
+            {MILESTONES.map((m,i) => {
+              const st = m.risk ? ST.risk : ST.ok;
+              return <div key={i} style={{ ...cardBase, padding:14, boxShadow:B.shadowSm }}>
+                <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:8 }}>
+                  <span style={{ fontSize:15, fontWeight:900 }}>{m.name}</span><Pill st={st}>{m.wk}</Pill></div>
+                <div style={{ fontSize:17, fontWeight:900, color:st.c }}>{m.date}</div>
+                <div style={{ fontSize:12, fontWeight:700, color:B.sub, marginTop:3 }}>{m.weight}</div>
+                <div style={{ fontSize:11.5, fontWeight:700, color:m.risk?"#be123c":B.sub, marginTop:8, paddingTop:8, borderTop:"1.5px dashed #d6d3d1" }}>
+                  {m.risk?"⚠️ ":""}{m.note}</div></div>;
+            })}
+          </div>
+        </div>
+
+        <div style={{ marginBottom:26 }}>
+          <SectionTitle no="02" kr="15주 캘린더 · 진도 체크" en="WEEK-BY-WEEK · TAP TO EXPAND" />
+
+          <div style={{ ...cardBase, padding:14, marginBottom:14, boxShadow:B.shadowSm }}>
+            <div style={{ display:"flex", justifyContent:"space-between", fontSize:13, fontWeight:800, marginBottom:8 }}>
+              <span>내 진도 체크 (시청 완료)</span><span style={{ color:"#047857" }}>{prog.cnt}/{prog.total}주 · {prog.pct}%</span></div>
+            <div style={{ height:14, background:"#e7e5e4", border:`2px solid ${B.ink}`, borderRadius:8, overflow:"hidden" }}>
+              <div style={{ width:prog.pct+"%", height:"100%", background:"#059669", transition:"width .25s" }} /></div>
+          </div>
+
+          <div style={{ display:"flex", gap:8, flexWrap:"wrap", marginBottom:14 }}>
+            <Pill st={ST.best}>진도 시청</Pill><Pill st={ST.ok}>퀴즈</Pill>
+            <Pill st={ST.risk}>중간·기말(필수)</Pill><Pill st={ST.limited}>과제·토론 미확인</Pill>
+          </div>
+
+          <div style={{ display:"flex", flexDirection:"column", gap:10 }}>
+            {WEEKS.map(w => {
+              const ev = w.event ? EV[w.event] : null;
+              const isOpen = open[w.wk], isDone = done[w.wk];
+              return <div key={w.wk} style={{ ...cardBase, padding:0, overflow:"hidden", boxShadow:B.shadowSm, borderColor:w.overlap?"#d97706":B.ink }}>
+                <div style={{ display:"flex", alignItems:"stretch" }}>
+                  <button onClick={() => check(w.wk)} style={{ width:46, border:"none", borderRight:`2px solid ${B.ink}`,
+                    background:isDone?"#d1fae5":"#f5f5f4", cursor:"pointer", fontSize:20 }}>{isDone?"✅":"⬜"}</button>
+                  <button onClick={() => toggle(w.wk)} style={{ flex:1, border:"none", background:"transparent", cursor:"pointer",
+                    textAlign:"left", padding:"11px 13px", display:"flex", alignItems:"center", gap:10 }}>
+                    <span style={{ fontSize:13, fontWeight:900, background:B.ink, color:B.cream, borderRadius:6, padding:"3px 8px", minWidth:30, textAlign:"center" }}>{w.wk}주</span>
+                    <div style={{ flex:1, minWidth:0 }}>
+                      <div style={{ fontSize:12.5, fontWeight:800, color:B.sub }}>{w.range}</div>
+                      {ev && <div style={{ marginTop:4 }}><Pill st={ev}>
+                        {(w.event==="mid"||w.event==="final")?"⚠️ ":"📝 "}{w.evLabel} · 마감 {w.deadline} (2과목)</Pill></div>}
+                      {w.overlap && <div style={{ marginTop:4, fontSize:11, fontWeight:800, color:"#b45309" }}>🔥 필수 6과목과 겹치는 구간</div>}
+                    </div>
+                    <span style={{ fontSize:16, color:B.sub }}>{isOpen?"▾":"▸"}</span>
+                  </button>
+                </div>
+                {isOpen && <div style={{ borderTop:`2px solid ${B.ink}`, padding:"12px 14px", background:"#faf8f1" }}>
+                  <div style={{ fontSize:11, fontWeight:900, color:"#047857", marginBottom:2 }}>노인복지론</div>
+                  <div style={{ fontSize:13, fontWeight:600 }}>{w.old}</div>
+                  <div style={{ borderTop:"1.5px dashed #d6d3d1", paddingTop:8, marginTop:8 }}>
+                    <div style={{ fontSize:11, fontWeight:900, color:"#1d4ed8", marginBottom:2 }}>청소년복지론</div>
+                    <div style={{ fontSize:13, fontWeight:600 }}>{w.you}</div></div>
+                </div>}
+              </div>;
+            })}
+          </div>
+        </div>
+
+        <div style={{ marginBottom:26 }}>
+          <SectionTitle no="03" kr="냉정한 한계점" en="HONEST CAVEATS" />
+          <div style={{ ...cardBase, background:"#fff1f2", borderColor:"#be123c" }}>
+            <ul style={{ margin:0, paddingLeft:18, fontSize:13.5, fontWeight:600, lineHeight:1.7 }}>
+              <li><b>날짜는 일부 추정값.</b> 중간(8주)·기말(15주)·OT는 정확한 기간이 PDF에 없어 "≈" 표시. <b>실제 강의실 공지로 반드시 재확인</b>.</li>
+              <li style={{ marginTop:6 }}><b>과제 15% · 토론 10%</b> 마감 주차가 PDF에 없음 → <b>미확인</b>. 확인 즉시 이 캘린더에 추가.</li>
+              <li style={{ marginTop:6 }}>자동화로 줄일 수 있는 건 <b>진도 시청(15%)뿐</b>. 나머지 85%는 전부 수동. <b>중간·기말 미응시 = 즉시 F</b>.</li>
+              <li style={{ marginTop:6 }}>수료 = <b>진도율 80%↑ AND 60점↑</b> 동시 충족.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div>
+          <SectionTitle no="04" kr="액션플랜" en="ACTION PLAN" />
+          <div style={{ display:"flex", flexDirection:"column", gap:10 }}>
+            {[
+              { e:"⏰", t:"지금 (1주차)", d:"강의실 공지에서 중간·기말 정확한 응시기간, 과제·토론 마감 주차를 확인해 '미확인' 칸을 메운다." },
+              { e:"✅", t:"매주", d:"두 과목 차시를 같은 날 묶어 시청 + 진도 체크. 차시 종료일 전날을 개인 마감으로." },
+              { e:"⚠️", t:"8주 / 15주", d:"중간·기말은 알림 2개(전날·당일)로 이중 방어. 절대 미응시 금지." },
+              { e:"🔥", t:"9월 중순~10월 초", d:"선택 2과목 막바지 + 필수 6과목 초반 겹침. 선택 2과목을 10월 초까지 끝내 부하 분리." },
+            ].map((a,i) => <div key={i} style={{ ...cardBase, padding:14, boxShadow:B.shadowSm, display:"flex", gap:12, alignItems:"flex-start" }}>
+              <div style={{ background:B.ink, borderRadius:8, padding:"6px 9px", fontSize:16 }}>{a.e}</div>
+              <div><div style={{ fontSize:14, fontWeight:900 }}>{a.t}</div>
+              <div style={{ fontSize:13, fontWeight:600, color:B.sub, marginTop:2, lineHeight:1.5 }}>{a.d}</div></div>
+            </div>)}
+          </div>
+        </div>
+
+        <div style={{ textAlign:"center", marginTop:28, fontSize:11.5, fontWeight:700, color:B.sub }}>
+          러닝화니 · 사복2급 S2 · 노인복지론 + 청소년복지론 평가 캘린더</div>
+      </div>
+    </div>
+  );
+}
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
+</body>
+</html>
