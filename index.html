@@ -43,7 +43,7 @@ const TREE = [
     children:[
       {
         id:"sw2", emoji:"🤲", title:"사회복지사 2급",
-        desc:"비전공·석사 보유 상태에서 2급→1급 최단·최저가 취득 여정",
+        desc:"비전공·석사 보유 상태에서 사회복지사 2급→1급을 최단·최저가로 취득하는 전 과정 기록.",
         tone:"#6fa8f5",
         children:[
           { id:"edu", emoji:"🏫", title:"교육원 선택 분석",
@@ -145,11 +145,17 @@ function App() {
         {/* 히어로 (홈에서만 크게) */}
         {path.length === 0 ? (
           <>
-            <h1 style={{ fontSize:34, fontWeight:900, margin:"0 0 6px", lineHeight:1.05 }}>
-              🤲 SilverCare <span style={{ background:"#6fcf7c", border:`2px solid ${B.ink}`,
-                borderRadius:8, padding:"0 10px", boxShadow:B.shadowSm, display:"inline-block" }}>Boards</span>
+            <div style={{ display:"inline-block", ...bru("#6fcf7c", true),
+              padding:"4px 12px", fontSize:13, fontWeight:900, marginBottom:14 }}>🤲 SilverCare Boards</div>
+            <h1 style={{ fontSize:32, fontWeight:900, margin:"0 0 12px", lineHeight:1.18 }}>
+              전문가는 선언이 아니라<br/>
+              <span style={{ background:"#6fcf7c", border:`2px solid ${B.ink}`, borderRadius:8,
+                padding:"0 10px", boxShadow:B.shadowSm, display:"inline-block", marginTop:8 }}>기록</span>으로 증명된다
             </h1>
-            <p style={{ fontSize:14, fontWeight:600, color:B.sub, margin:"10px 0 18px", lineHeight:1.6 }}>
+            <p style={{ fontSize:15, fontWeight:800, color:B.ink, margin:"0 0 16px", lineHeight:1.5 }}>
+              자격·지식·시장 인사이트를 하나씩 직접 박제한 여정.
+            </p>
+            <p style={{ fontSize:14, fontWeight:600, color:B.sub, margin:"0 0 18px", lineHeight:1.6 }}>
               실버케어 도메인 전문가가 되기 위한 자격·지식·시장 인사이트를 직접 쌓아 올린 기록.
               가설이 아니라 <b style={{ color:B.ink }}>직접 한 것</b>만 박제한다.
             </p>
