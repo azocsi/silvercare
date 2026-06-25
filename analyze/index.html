@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>사회복지사 2급 교육원 비교 · ch2 마무리</title>
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" rel="stylesheet" />
+<style>
+  :root {
+    --ink:#1c1917; --cream:#fdfcf7; --card:#fffdf8; --sub:#78716c;
+    --shadow:4px 4px 0 0 #1c1917; --shadow-sm:2px 2px 0 0 #1c1917;
+  }
+  * { box-sizing:border-box; -webkit-tap-highlight-color:transparent; margin:0; padding:0; }
+  body {
+    font-family:Pretendard,-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
+    background:linear-gradient(160deg,#fdfcf7 0%,#f5f1e8 45%,#ebe4d3 100%);
+    color:var(--ink); line-height:1.5; padding:24px 14px 48px;
+  }
+  .wrap { max-width:560px; margin:0 auto; }
+  .badge {
+    display:inline-block; font-size:11.5px; font-weight:800; color:var(--ink);
+    background:#fde68a; border:2px solid var(--ink); border-radius:999px;
+    padding:4px 11px; box-shadow:var(--shadow-sm); margin-right:6px; margin-bottom:4px;
+  }
+  .badge-green {
+    display:inline-block; font-size:11.5px; font-weight:800; color:#047857;
+    background:#d1fae5; border:2px solid var(--ink); border-radius:999px;
+    padding:4px 11px; box-shadow:var(--shadow-sm);
+  }
+  h1 { font-size:28px; font-weight:900; margin:12px 0 2px; line-height:1.08; }
+  h2.sub { font-size:17px; font-weight:800; color:var(--sub); line-height:1.15; }
+  .conclusion {
+    background:var(--ink); color:#fdfcf7; border:2px solid var(--ink);
+    border-radius:14px; box-shadow:var(--shadow); padding:16px; margin:20px 0 24px;
+  }
+  .conclusion .tag { font-size:12.5px; font-weight:800; color:#fbbf24; margin-bottom:6px; }
+  .conclusion .body { font-size:14px; font-weight:600; line-height:1.7; }
+  .section { margin-bottom:28px; }
+  .sec-title { display:flex; align-items:flex-end; gap:12px; margin-bottom:16px; }
+  .sec-no { font-family:ui-monospace,Menlo,monospace; font-size:28px; font-weight:900; line-height:1; letter-spacing:-1px; }
+  .sec-h { font-size:19px; font-weight:900; line-height:1.1; }
+  .sec-s { font-size:12.5px; color:var(--sub); font-weight:600; margin-top:2px; }
+  .card { background:var(--card); border:2px solid var(--ink); border-radius:14px; box-shadow:var(--shadow); padding:16px; }
+  .card-sm { padding:14px; }
+  .chip {
+    display:inline-flex; align-items:center; gap:5px; font-size:12px; font-weight:800;
+    border:1.5px solid var(--ink); border-radius:999px; padding:3px 10px; white-space:nowrap;
+  }
+  .chip .dot { width:8px; height:8px; border-radius:999px; flex-shrink:0; }
+  .bar-wrap { display:flex; align-items:center; gap:8px; }
+  .bar { flex:1; height:16px; background:#efe9da; border:1.5px solid var(--ink); border-radius:999px; overflow:hidden; }
+  .bar div { height:100%; border-right:1.5px solid var(--ink); }
+  .bar-val { font-size:12.5px; font-weight:900; min-width:58px; text-align:right; }
+  .site-row {
+    background:var(--card); border:2px solid var(--ink); border-radius:14px;
+    box-shadow:var(--shadow-sm); margin-bottom:10px; overflow:hidden; transition:box-shadow .15s;
+  }
+  .site-row.open { box-shadow:var(--shadow); }
+  .site-row.passed { opacity:0.6; }
+  .site-btn {
+    width:100%; display:flex; align-items:center; gap:8px; padding:13px 14px;
+    background:transparent; border:none; cursor:pointer; text-align:left;
+    font-family:Pretendard,-apple-system,sans-serif;
+  }
+  .site-name { font-size:15.5px; font-weight:900; min-width:88px; }
+  .site-tag { font-size:11.5px; font-weight:800; color:var(--sub); }
+  .site-chips { margin-left:auto; display:flex; gap:5px; flex-wrap:wrap; justify-content:flex-end; }
+  .site-body { padding:0 14px 14px; border-top:1.5px dashed #d6ccb5; }
+  .meta-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:8px; margin:12px 0; }
+  .meta-box { background:var(--cream); border:1.5px solid var(--ink); border-radius:10px; padding:8px 10px; }
+  .meta-label { font-size:11px; font-weight:700; color:var(--sub); margin-bottom:4px; }
+  .meta-val { font-size:13px; font-weight:800; }
+  .highlight-box {
+    background:#fef3c7; border:2px solid #d97706; border-radius:10px;
+    padding:9px 11px; margin-bottom:10px; font-size:12.5px; font-weight:800; color:#92400e;
+  }
+  .login-box {
+    background:#fff1f2; border:1.5px solid var(--ink); border-radius:10px;
+    padding:9px 11px; margin-bottom:10px;
+  }
+  .login-label { font-size:11px; font-weight:800; color:#be123c; margin-bottom:3px; }
+  .login-val { font-size:12.5px; font-weight:700; }
+  .payload-box {
+    background:#f0fdf4; border:1.5px solid #16a34a; border-radius:8px;
+    padding:8px 10px; margin-bottom:10px; font-family:ui-monospace,monospace;
+    font-size:11.5px; font-weight:700; color:#166534; line-height:1.5;
+  }
+  .memo-text { font-size:13px; font-weight:600; line-height:1.55; margin-bottom:12px; }
+  .ext-link {
+    display:inline-flex; align-items:center; gap:4px; font-size:12.5px; font-weight:800;
+    color:var(--ink); text-decoration:none; border-bottom:2px solid #fbbf24;
+  }
+  .pass-reason { display:flex; align-items:flex-start; gap:10px; padding:14px 0; }
+  .pass-reason .pass-ico { font-size:20px; flex-shrink:0; }
+  .pass-reason .pass-title { font-size:14px; font-weight:900; color:#be123c; margin-bottom:4px; }
+  .price-row { display:flex; align-items:center; gap:10px; padding:9px 0; border-bottom:1.5px dashed #d6ccb5; }
+  .price-row:last-child { border-bottom:none; }
+  .price-rank { width:18px; font-weight:900; font-size:14px; }
+  .price-name { width:88px; font-weight:800; font-size:13.5px; }
+  .price-label { width:82px; text-align:right; font-weight:900; font-size:13.5px; }
+  .note { font-size:12px; color:var(--sub); font-weight:600; margin-top:10px; line-height:1.5; }
+  .action-row { display:flex; gap:12px; padding:11px 0; border-bottom:1.5px dashed #d6ccb5; }
+  .action-row:last-child { border-bottom:none; }
+  .action-num {
+    width:26px; height:26px; flex-shrink:0; border-radius:8px;
+    background:#fde68a; border:2px solid var(--ink);
+    display:flex; align-items:center; justify-content:center;
+    font-weight:900; font-size:13px;
+  }
+  .action-t { font-size:14px; font-weight:800; }
+  .action-d { font-size:12.5px; color:var(--sub); font-weight:600; margin-top:2px; }
+  .limit-card { padding:14px; }
+  .limit-title { font-size:14px; font-weight:900; margin-bottom:5px; }
+  .limit-body { font-size:12.5px; color:var(--sub); font-weight:600; line-height:1.55; }
+  .limits-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:10px; }
+  footer { text-align:center; font-size:11px; color:#a8a29e; font-weight:700; margin-top:24px; }
+  @media (prefers-reduced-motion:reduce) { * { transition:none !important; } }
+</style>
+</head>
+<body>
+<div class="wrap" id="app"></div>
+<script>
+var ST = {
+  best:{label:"최적",c:"#047857",bg:"#d1fae5",dot:"#059669"},
+  ok:{label:"가능",c:"#1d4ed8",bg:"#dbeafe",dot:"#2563eb"},
+  limited:{label:"부분",c:"#b45309",bg:"#fef3c7",dot:"#d97706"},
+  risk:{label:"주의",c:"#be123c",bg:"#ffe4e6",dot:"#e11d48"},
+  no:{label:"불가",c:"#be123c",bg:"#ffe4e6",dot:"#e11d48"},
+  unknown:{label:"미확인",c:"#57534e",bg:"#e7e5e4",dot:"#a8a29e"}
+};
+var SITES = [
+  { id:"joongang", name:"중앙사이버", url:"joongangcyber.com", tag:"🥇 실결제 최저",
+    priceLabel:"72만", priceNum:720000, perSubject:"정가 15만→70% 할인",
+    lms:"ok", lmsLabel:"iframe→HTML5", listeners:6, ratechange:false, passed:false, tested:true,
+    progressPayload:"맛보기 부모 끊김 → 미확인 (정식 강의실 확인 필요)",
+    hasPayload:false, highlight:null,
+    login:"SecuKit NXS 공동인증서 (ID/PW 일반로그인 옵션 있음 — 수강 가능 시 자동화 여지)",
+    memo:"iframe(media.joongangcyber.com) → 내부 순수 HTML5 video. 배속 2.0 실측 성공. ratechange 감지 없음 ✅. 핵심 관문은 SecuKit 로그인 — ID/PW 수강 가능하면 자동화 가능성 ↑. 17과목 이론 패키지 240만→70%할인→72만." },
+  { id:"mega", name:"메가원격", url:"caedu.co.kr", tag:"🏆 리스너 0개",
+    priceLabel:"86.7만*", priceNum:867000, perSubject:"이론당 3.54만",
+    lms:"best", lmsLabel:"HTML5 직접", listeners:0, ratechange:false, passed:false, tested:true,
+    progressPayload:"맛보기 부모 끊김 → 미확인 (정식 강의실 확인 필요)",
+    hasPayload:false, highlight:"⭐ getEventListeners(video) = {} — 배속·건너뛰기·탭이탈 전부 감지 안 함",
+    login:"IP출석 1인 + 생체/OTP/PIN/SMS/PKI 대리출석 차단",
+    memo:"★여름초특가(6/24마감): 풀패키지 86.7만(77%할인). getEventListeners(video)가 완전히 비어있음(리스너 0개) — 5곳 최청정. 단 핵심 관문은 IP·생체/OTP 출석. 진도저장은 정식 강의실에서 확인 필요." },
+  { id:"baeoom", name:"배움사이버", url:"career.baeoom.com", tag:"✅ 가입완료",
+    priceLabel:"88.24만", priceNum:882400, perSubject:"공개 고정가 4.5만",
+    lms:"best", lmsLabel:"HTML5 직접", listeners:17, ratechange:true, passed:false, tested:true,
+    progressPayload:"맛보기 소스 404(영상 재생 불가) → 실측 자체 불가. 정식 강의 필수.",
+    hasPayload:false, highlight:null,
+    login:"SMS 본인인증 or 공동인증서 필수. ID/PW만으론 수강불가. 수강PC 3대 등록.",
+    memo:"순수 HTML5(iframe 없음). 맛보기 소스 404 → 영상 재생 안 됨, 배속 실제 제어 실측 불가. ratechange 등 리스너 17개 있으나 실제 막는지 미확인(UI 동기화용일 수도). 정식 강의실 재검증 필수. LMS ID: silvercare." },
+  { id:"hackers", name:"해커스", url:"paranhanul.net", tag:"💎 진도저장 평문",
+    priceLabel:"9,700원*", priceNum:9700, perSubject:"조건부 이벤트(7과목↑)",
+    lms:"best", lmsLabel:"HTML5 직접", listeners:20, ratechange:true, passed:false, tested:true,
+    progressPayload:"lecture.Videotime.ajax.php — video_time=132.885496 (float 평문, 암호화 없음) ✅",
+    hasPayload:true, highlight:"💎 진도저장 Payload 완전 평문 — ch4 자동화 셋업 핵심 실마리",
+    login:"class.paranhanul.net 수강생 전용 강의실",
+    memo:"HTML5 직접(CDN: hanul-mp4.hackers...). 배속 2.0 맛보기 성공. 감지 리스너 ~20개(ratechange+seeking 포함) — 4곳 중 가장 많음. ★단 진도저장 Payload가 완전 평문: video_time=132.885496 float POST (암호화·서명 없음). 출석=누적 학습시간(0분 달성 시 인정). 9,700원은 7과목↑ 이벤트 조건부." },
+  { id:"kstudy", name:"Kstudy", url:"kstudy.co.kr", tag:"🚫 패스",
+    priceLabel:"6.9만", priceNum:69000, perSubject:"—",
+    lms:"unknown", lmsLabel:"미측정", listeners:null, ratechange:null, passed:true, tested:false,
+    progressPayload:"—", hasPayload:false, highlight:null, login:"—",
+    memo:"맛보기 영상 미제공 → F12 실측 불가. 사이트 속도 느리고 UI/UX 타사 대비 불편. 이번 기관 선정에서 제외. (22년 운영, 출석 80%+시험 60분 1회는 계속 유효 — 향후 재검토 여지 있음.)" },
+  { id:"ubion", name:"유비온", url:"iubion.com", tag:"🚫 이론 과목 없음",
+    priceLabel:"—", priceNum:9999999, perSubject:"—",
+    lms:"unknown", lmsLabel:"미측정", listeners:null, ratechange:null, passed:true, tested:false,
+    progressPayload:"—", hasPayload:false, highlight:null, login:"—",
+    memo:"이론 과목 0개 (2026년 6기수 전체 조회). 실습 1과목만 9/3(4회차) 신청 가능. 자격증 취득 목적으로 사용 불가 → 탈락." }
+];
+var tested = SITES.filter(function(s){ return s.tested; });
+var priceRank = SITES.filter(function(s){ return s.priceNum < 900000 && s.id !== "hackers" && !s.passed; })
+  .sort(function(a,b){ return a.priceNum - b.priceNum; });
+
+function el(tag, attrs, children) {
+  var n = document.createElement(tag);
+  if (attrs) for (var k in attrs) {
+    if (k === "class") n.className = attrs[k];
+    else if (k === "style") n.style.cssText = attrs[k];
+    else if (k === "html") n.innerHTML = attrs[k];
+    else n.setAttribute(k, attrs[k]);
+  }
+  if (children) (Array.isArray(children)?children:[children]).forEach(function(c){
+    if (c == null) return;
+    n.appendChild(typeof c === "string" ? document.createTextNode(c) : c);
+  });
+  return n;
+}
+function chip(status, text) {
+  var s = ST[status] || ST.unknown;
+  var c = el("span", { "class":"chip", style:"color:"+s.c+";background:"+s.bg });
+  c.appendChild(el("span", { "class":"dot", style:"background:"+s.dot }));
+  c.appendChild(document.createTextNode(text || s.label));
+  return c;
+}
+function secTitle(no, title, sub) {
+  var d = el("div", { "class":"sec-title" });
+  d.appendChild(el("span", { "class":"sec-no" }, no));
+  var box = el("div");
+  box.appendChild(el("div", { "class":"sec-h" }, title));
+  if (sub) box.appendChild(el("div", { "class":"sec-s" }, sub));
+  d.appendChild(box);
+  return d;
+}
+function cleanBar(listeners) {
+  if (listeners === null) return el("span", { style:"font-size:12px;color:var(--sub);font-weight:700" }, "미측정");
+  var pct = Math.max(6, 100 - Math.min(listeners,20)/20*100);
+  var color = listeners===0 ? "#6ee7b7" : listeners<10 ? "#93c5fd" : "#fcd9a8";
+  var wrap = el("div", { "class":"bar-wrap" });
+  var bar = el("div", { "class":"bar" });
+  bar.appendChild(el("div", { style:"width:"+pct+"%;background:"+color }));
+  wrap.appendChild(bar);
+  wrap.appendChild(el("span", { "class":"bar-val" }, listeners===0 ? "0개 🏆" : listeners+"개"));
+  return wrap;
+}
+
+var app = document.getElementById("app");
+var openId = "joongang";
+function render() {
+  app.innerHTML = "";
+
+  // ─ 헤더 ─
+  var head = el("div", { style:"margin-bottom:20px" });
+  head.appendChild(el("span", { "class":"badge" }, "🎓 사회복지사 2급 · S1 ch2 마무리"));
+  head.appendChild(el("span", { "class":"badge-green" }, "✅ 4곳 실측 · 2곳 패스"));
+  head.appendChild(el("h1", null, "F12로 직접 찍은 자동화 비교"));
+  head.appendChild(el("h2", { "class":"sub" }, "가설 아님 · 실데이터 · ch2 최종"));
+  app.appendChild(head);
+
+  // ─ 결론 ─
+  var con = el("div", { "class":"conclusion" });
+  con.appendChild(el("div", { "class":"tag" }, "📌 ch2 최종 결론"));
+  con.appendChild(el("div", { "class":"body", html:
+    '<b style="color:#6ee7b7">가격</b>: 중앙 72만(최저) → 메가 86.7만(여름특가 6/24마감) → 배움 88.24만. '
+    +'<b style="color:#6ee7b7">영상제어</b>: 메가 0개 &gt; 중앙 6개(ratechange✗) &gt; 배움 17개 &gt; 해커스 ~20개. '
+    +'<b style="color:#fbbf24">💎 하이라이트</b>: 해커스 진도저장이 <b style="color:#fbbf24">완전 평문(video_time float POST)</b> — ch4 자동화 셋업 핵심 실마리. '
+    +'<b style="color:#fda4af">Kstudy·유비온 패스 확정. 최단 3학기·~2028 상반기는 불변.</b>'
+  }));
+  app.appendChild(con);
+
+  // ─ 01 핵심 3줄 ─
+  var s01 = el("div", { "class":"section" });
+  s01.appendChild(secTitle("01", "실측 3줄 요약", "가설 말고 직접 찍은 것"));
+  var g01 = el("div", { style:"display:flex;flex-direction:column;gap:10px" });
+  [
+    { ic:"💸", t:"최저 실결제", v:"중앙 72만", d:"정가 240만→70%할인. 메가 86.7만 여름특가 2위(6/24 마감)", s:"best" },
+    { ic:"⚡", t:"영상 최청정", v:"메가 리스너 0개", d:"배속·건너뛰기·탭이탈 전부 감지 안 함. 5곳 최청정.", s:"best" },
+    { ic:"💎", t:"진도저장 평문", v:"해커스 video_time", d:"lecture.Videotime.ajax.php에 float 그대로 POST. 암호화 없음.", s:"ok" },
+  ].forEach(function(x) {
+    var c = el("div", { "class":"card card-sm summary-card" });
+    var r1 = el("div", { "class":"row1" });
+    r1.appendChild(el("span", { "class":"ic" }, x.ic));
+    r1.appendChild(el("span", { "class":"t" }, x.t));
+    r1.appendChild(el("span", { style:"margin-left:auto" }, [chip(x.s)]));
+    c.appendChild(r1);
+    c.appendChild(el("div", { "class":"v" }, x.v));
+    c.appendChild(el("div", { "class":"d" }, x.d));
+    g01.appendChild(c);
+  });
+  s01.appendChild(g01);
+  app.appendChild(s01);
+
+  // ─ 02 영상제어 청정도 ─
+  var s02 = el("div", { "class":"section" });
+  s02.appendChild(secTitle("02", "영상제어 청정도", "감지 리스너 수 — 적을수록 자동화 유리 (실측 4곳)"));
+  var c02 = el("div", { "class":"card" });
+  tested.forEach(function(s, i) {
+    var row = el("div", { style:"padding:11px 0;"+(i<tested.length-1?"border-bottom:1.5px dashed #d6ccb5":"") });
+    var top = el("div", { style:"display:flex;align-items:center;gap:8px;margin-bottom:7px" });
+    top.appendChild(el("span", { style:"font-weight:900;font-size:14px;min-width:88px" }, s.name));
+    top.appendChild(el("span", { style:"font-size:11.5px;color:var(--sub);font-weight:700" }, s.lmsLabel));
+    var rc = chip(s.ratechange ? "limited" : "best", s.ratechange ? "ratechange ⚠️" : "ratechange ✗");
+    top.appendChild(el("span", { style:"margin-left:auto" }, [rc]));
+    row.appendChild(top);
+    row.appendChild(cleanBar(s.listeners));
+    if (s.highlight) {
+      row.appendChild(el("div", { style:"margin-top:7px;font-size:12px;font-weight:800;color:#b45309;background:#fef3c7;border:1.5px solid #d97706;border-radius:8px;padding:5px 9px" }, s.highlight));
+    }
+    c02.appendChild(row);
+  });
+  c02.appendChild(el("p", { "class":"note" },
+    "※ 메가 0개=완전 비어있음. 중앙 6개=ratechange 없어 배속 안 막음. 배움 17개=ratechange 있으나 맛보기 404로 실제 미확인. 해커스 ~20개=ratechange+seeking 있으나 진도저장은 평문."));
+  s02.appendChild(c02);
+  app.appendChild(s02);
+
+  // ─ 03 진도저장 방식 ─
+  var s03 = el("div", { "class":"section" });
+  s03.appendChild(secTitle("03", "진도저장 Payload", "ch4 자동화 셋업의 핵심"));
+  var c03 = el("div", { "class":"card" });
+  tested.forEach(function(s, i) {
+    var row = el("div", { style:"padding:10px 0;"+(i<tested.length-1?"border-bottom:1.5px dashed #d6ccb5":"") });
+    var top = el("div", { style:"display:flex;align-items:center;gap:8px;margin-bottom:5px" });
+    top.appendChild(el("span", { style:"font-weight:900;font-size:13.5px;min-width:88px" }, s.name));
+    top.appendChild(chip(s.hasPayload ? "best" : "unknown", s.hasPayload ? "✅ 평문 확인" : "❓ 미확인"));
+    row.appendChild(top);
+    row.appendChild(el("div", {
+      style:"font-size:11.5px;font-weight:"+(s.hasPayload?"800":"600")+";color:"+(s.hasPayload?"#166534":"var(--sub)")+";font-family:"+(s.hasPayload?"ui-monospace,monospace":"inherit")+";line-height:1.5"
+    }, s.progressPayload));
+    c03.appendChild(row);
+  });
+  c03.appendChild(el("p", { "class":"note" },
+    "※ 맛보기는 부모페이지 끊겨 Network 측정 불가(정상). 배움·중앙·메가는 정식 강의실 등록 후 Fetch/XHR 재확인 필요."));
+  s03.appendChild(c03);
+  app.appendChild(s03);
+
+  // ─ 04 가격 랭킹 ─
+  var s04 = el("div", { "class":"section" });
+  s04.appendChild(secTitle("04", "실결제 가격 랭킹", "17과목 기준 (해커스 조건부·패스 2곳 제외)"));
+  var c04 = el("div", { "class":"card" });
+  var maxP = 882400;
+  priceRank.forEach(function(s, i) {
+    var w = Math.max(8, s.priceNum/maxP*100);
+    var row = el("div", { "class":"price-row" });
+    row.appendChild(el("span", { "class":"price-rank", style:"color:"+(i===0?"#047857":"var(--sub)") }, String(i+1)));
+    row.appendChild(el("span", { "class":"price-name" }, s.name));
+    var bar = el("div", { "class":"bar", style:"flex:1" });
+    bar.appendChild(el("div", { style:"width:"+w+"%;background:"+(i===0?"#6ee7b7":"#fcd9a8") }));
+    row.appendChild(bar);
+    row.appendChild(el("span", { "class":"price-label" }, s.priceLabel));
+    c04.appendChild(row);
+  });
+  c04.appendChild(el("p", { "class":"note" }, "※ 메가 86.7만은 여름초특가(6/24 마감). 중앙·메가 모두 상담 쿠폰 변수 있어 최종 결제 직전 재확인. 총비용에 실습세미나·실습기관비·행정비 별도."));
+  s04.appendChild(c04);
+  app.appendChild(s04);
+
+  // ─ 05 교육원별 상세 ─
+  var s05 = el("div", { "class":"section" });
+  s05.appendChild(secTitle("05", "교육원별 상세", "탭을 누르면 펼쳐져요 · 실측 4 + 패스 2"));
+  SITES.forEach(function(s) {
+    var row = el("div", { "class":"site-row"+(openId===s.id?" open":"")+(s.passed?" passed":"") });
+    var btn = el("button", { "class":"site-btn" });
+    var arrow = el("span", { style:"font-size:14px;color:var(--sub);transition:transform .15s;"+(openId===s.id?"transform:rotate(90deg)":"") }, "▶");
+    btn.appendChild(arrow);
+    var nameEl = el("span", { "class":"site-name", style:s.passed?"text-decoration:line-through":""}, s.name);
+    btn.appendChild(nameEl);
+    btn.appendChild(el("span", { "class":"site-tag" }, s.tag));
+    var chips = el("span", { "class":"site-chips" });
+    if (!s.passed) chips.appendChild(chip("ok", "💸 "+s.priceLabel));
+    chips.appendChild(chip(s.passed?"no":"limited", s.passed?"🚫 패스":s.tested?"⚠️ 부분":"미조사"));
+    btn.appendChild(chips);
+    btn.onclick = function() {
+      openId = (openId===s.id) ? null : s.id;
+      render();
+    };
+    row.appendChild(btn);
+    if (openId === s.id) {
+      var body = el("div", { "class":"site-body" });
+      if (s.passed) {
+        var pr = el("div", { "class":"pass-reason" });
+        pr.appendChild(el("span", { "class":"pass-ico" }, "🚫"));
+        var pd = el("div");
+        pd.appendChild(el("div", { "class":"pass-title" }, "이번 선정에서 제외"));
+        pd.appendChild(el("div", { "class":"memo-text", style:"color:var(--sub)" }, s.memo));
+        pr.appendChild(pd);
+        body.appendChild(pr);
+      } else {
+        var mg = el("div", { "class":"meta-grid" });
+        [
+          ["LMS", chip(s.lms, s.lmsLabel)],
+          ["감지 리스너", el("span", { "class":"meta-val" }, s.listeners===null?"미측정":s.listeners===0?"0개 🏆":s.listeners+"개")],
+          ["과목당", el("span", { "class":"meta-val" }, s.perSubject)],
+          ["진도저장", chip(s.hasPayload?"best":"unknown", s.hasPayload?"평문 ✅":"미확인 ❓")],
+        ].forEach(function(pair) {
+          var b = el("div", { "class":"meta-box" });
+          b.appendChild(el("div", { "class":"meta-label" }, pair[0]));
+          b.appendChild(pair[1]);
+          mg.appendChild(b);
+        });
+        body.appendChild(mg);
+        if (s.highlight) body.appendChild(el("div", { "class":"highlight-box" }, s.highlight));
+        var lb = el("div", { "class":"login-box" });
+        lb.appendChild(el("div", { "class":"login-label" }, "🔐 로그인 장벽 (진짜 관문)"));
+        lb.appendChild(el("div", { "class":"login-val" }, s.login));
+        body.appendChild(lb);
+        if (s.hasPayload) {
+          body.appendChild(el("div", { "class":"payload-box" }, "진도저장: "+s.progressPayload));
+        }
+        body.appendChild(el("div", { "class":"memo-text" }, s.memo));
+        body.appendChild(el("a", { "class":"ext-link", href:"https://"+s.url, target:"_blank" }, "🔗 "+s.url));
+      }
+      row.appendChild(body);
+    }
+    s05.appendChild(row);
+  });
+  app.appendChild(s05);
+
+  // ─ 06 냉정한 한계점 ─
+  var s06 = el("div", { "class":"section" });
+  s06.appendChild(secTitle("06", "냉정한 한계점", "실측했어도 아직 모르는 것"));
+  var lg = el("div", { "class":"limits-grid" });
+  [
+    { ic:"📊", t:"진도저장 3곳 미확인", d:"배움·중앙·메가는 맛보기 Network 측정 불가. 정식 등록 후 Fetch/XHR에서 확인해야 최종 ✅/❌. 해커스는 평문 확인됐으나 서버의 속도 검증 여부는 추가 확인 필요." },
+    { ic:"🔐", t:"영상 깨끗 ≠ 자동화 가능", d:"메가 리스너 0개지만 IP+생체/OTP가 진짜 관문. 영상제어 청정도와 로그인 장벽은 별개 문제." },
+    { ic:"⚠️", t:"배움 실측 불가 상태", d:"맛보기 소스 404로 영상 재생 안 됨. ratechange 17개가 실제 막는지 미확인. 정식 강의실 재검증 필수." },
+    { ic:"⏰", t:"메가 6/24 마감 임박", d:"여름초특가 86.7만이 6/22 기준 이틀 남음. 실질 결정이 필요하다면 오늘 내일 안에." },
+  ].forEach(function(x) {
+    var c = el("div", { "class":"card limit-card" });
+    c.appendChild(el("div", { "class":"limit-title" }, x.ic+" "+x.t));
+    c.appendChild(el("div", { "class":"limit-body" }, x.d));
+    lg.appendChild(c);
+  });
+  s06.appendChild(lg);
+  app.appendChild(s06);
+
+  // ─ 07 ch3 액션 플랜 ─
+  var s07 = el("div", { "class":"section" });
+  s07.appendChild(secTitle("07", "ch3로 넘어가기", "기관 확정 → 수강신청 전략"));
+  var c07 = el("div", { "class":"card" });
+  [
+    ["메가 6/24 마감 전 의사결정", "가격·영상청정도 1위지만 IP출석 장벽. 오늘~내일 최종 결정"],
+    ["중앙 or 메가 — 로그인 장벽 최종 확인", "중앙: ID/PW 로그인으로 수강까지 가능한지 / 메가: IP출석 구조 상세"],
+    ["2026 2학기 8과목 신청 (시나리오 B)", "필수4 확보 → 실습을 2027 1학기로 당기는 핵심 타이밍"],
+    ["ch4 자동화 셋업 준비", "해커스 진도저장 평문 실마리 + 선택 기관 정식 등록 후 Playwright 작성"],
+    ["현장실습기관 미리 섭외", "welfare.net 등록기관, 주말·야간 가능처 2027 초부터 연락"],
+  ].forEach(function(pair, i) {
+    var r = el("div", { "class":"action-row" });
+    r.appendChild(el("span", { "class":"action-num" }, String(i+1)));
+    var d = el("div");
+    d.appendChild(el("div", { "class":"action-t" }, pair[0]));
+    d.appendChild(el("div", { "class":"action-d" }, pair[1]));
+    r.appendChild(d);
+    c07.appendChild(r);
+  });
+  s07.appendChild(c07);
+  app.appendChild(s07);
+
+  app.appendChild(el("footer", null, "🥈 사회복지사 2급 · S1 ch2 마무리 · F12 실측: 배움·중앙·메가·해커스 · Kstudy·유비온 패스 · 2026-06-22"));
+}
+render();
+</script>
+</body>
+</html>
