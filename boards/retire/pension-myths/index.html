@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>퇴직연금 디폴트옵션 오해 3가지 · 노후준비 #001</title>
+<meta name="description" content="부모님 퇴직연금, 자녀가 대신 확인해야 할 디폴트옵션 오해 3가지 — 매수추천 아닌 오해교정 교육 기록." />
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" rel="stylesheet" />
+<style>
+  :root {
+    --ink:#1c1917; --cream:#fdfcf7; --card:#fffdf8; --sub:#78716c;
+    --shadow:4px 4px 0 0 #1c1917; --shadow-sm:2px 2px 0 0 #1c1917;
+    --emerald-c:#047857; --emerald-bg:#d1fae5;
+    --blue-c:#1d4ed8; --blue-bg:#dbeafe;
+    --amber-c:#b45309; --amber-bg:#fef3c7;
+    --rose-c:#be123c; --rose-bg:#ffe4e6;
+    --accent:#f5b74f;
+  }
+  * { box-sizing:border-box; -webkit-tap-highlight-color:transparent; margin:0; padding:0; }
+  body {
+    font-family:Pretendard,-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
+    background:linear-gradient(160deg,#fdfcf7 0%,#f5f1e8 45%,#ebe4d3 100%);
+    color:var(--ink); line-height:1.55; padding:20px 14px 52px;
+  }
+  .wrap { max-width:560px; margin:0 auto; }
+
+  /* ── nav ── */
+  .nav { display:flex; align-items:center; gap:8px; margin-bottom:16px; flex-wrap:wrap; }
+  .back {
+    display:inline-flex; align-items:center; gap:4px; font-size:13px; font-weight:800;
+    color:var(--ink); background:var(--card); border:2px solid var(--ink); border-radius:999px;
+    padding:6px 13px; box-shadow:var(--shadow-sm); text-decoration:none;
+  }
+  .back:active { transform:translate(1px,1px); box-shadow:1px 1px 0 0 var(--ink); }
+  .pill-accent {
+    display:inline-flex; align-items:center; gap:5px; font-size:13px; font-weight:800; color:var(--ink);
+    background:var(--accent); border:2px solid var(--ink); border-radius:999px;
+    padding:6px 13px; box-shadow:var(--shadow-sm);
+  }
+
+  /* ── headline ── */
+  h1 { font-size:29px; font-weight:900; margin:6px 0 8px; line-height:1.12; letter-spacing:-0.5px; }
+  .hl {
+    background:var(--accent); border:2px solid var(--ink); border-radius:8px;
+    padding:0 8px; box-shadow:var(--shadow-sm); display:inline-block; line-height:1.3;
+  }
+  .sub { font-size:15.5px; font-weight:700; color:var(--sub); margin-bottom:16px; }
+
+  /* ── disclaimer ── */
+  .disc {
+    background:var(--amber-bg); border:2px solid var(--ink); border-radius:12px;
+    box-shadow:var(--shadow-sm); padding:11px 13px; font-size:12.5px; font-weight:600;
+    color:#78350f; margin-bottom:22px; line-height:1.5;
+  }
+
+  /* ── section label ── */
+  .sec { margin:30px 0 12px; display:flex; align-items:baseline; gap:9px; }
+  .sec-no {
+    font-size:13px; font-weight:900; color:var(--cream); background:var(--ink);
+    border-radius:6px; padding:2px 8px; letter-spacing:1px;
+  }
+  .sec-title { font-size:19px; font-weight:900; letter-spacing:-0.3px; }
+
+  /* ── conclusion (dark) ── */
+  .conclusion {
+    background:var(--ink); color:var(--cream); border:2px solid var(--ink);
+    border-radius:16px; box-shadow:var(--shadow); padding:18px 17px; margin-bottom:6px;
+  }
+  .conclusion .k { font-size:12.5px; font-weight:800; color:var(--accent); letter-spacing:1px; margin-bottom:10px; }
+  .conclusion ul { list-style:none; display:flex; flex-direction:column; gap:11px; }
+  .conclusion li { font-size:15px; font-weight:600; line-height:1.5; display:flex; gap:9px; align-items:flex-start; }
+  .conclusion li b { color:#fff; font-weight:800; }
+  .cx { color:#fb7185; font-weight:900; flex-shrink:0; }
+
+  /* ── myth cards ── */
+  .myth {
+    background:var(--card); border:2px solid var(--ink); border-radius:16px;
+    box-shadow:var(--shadow); overflow:hidden; margin-bottom:16px;
+  }
+  .myth > summary {
+    list-style:none; cursor:pointer; padding:15px 16px; display:flex; gap:11px; align-items:flex-start;
+  }
+  .myth > summary::-webkit-details-marker { display:none; }
+  .myth-num {
+    flex-shrink:0; width:26px; height:26px; border-radius:8px; border:2px solid var(--ink);
+    background:var(--rose-bg); color:var(--rose-c); font-weight:900; font-size:14px;
+    display:flex; align-items:center; justify-content:center; box-shadow:var(--shadow-sm);
+  }
+  .myth-head { flex:1; }
+  .myth-tag {
+    display:inline-block; font-size:10.5px; font-weight:900; color:var(--rose-c);
+    background:var(--rose-bg); border:1.5px solid var(--rose-c); border-radius:5px;
+    padding:1px 6px; margin-bottom:5px; letter-spacing:0.3px;
+  }
+  .myth-q { font-size:15.5px; font-weight:800; line-height:1.35; }
+  .myth-q .quote { color:var(--rose-c); }
+  .chev { flex-shrink:0; font-size:13px; color:var(--sub); font-weight:900; margin-top:3px; transition:transform .2s; }
+  .myth[open] .chev { transform:rotate(90deg); }
+  .myth-body { padding:0 16px 16px; }
+  .truth {
+    background:var(--emerald-bg); border:2px solid var(--emerald-c); border-radius:12px;
+    padding:12px 13px; margin-bottom:12px;
+  }
+  .truth-tag { font-size:10.5px; font-weight:900; color:var(--emerald-c); letter-spacing:0.5px; margin-bottom:5px; }
+  .truth p { font-size:14px; font-weight:600; line-height:1.55; color:#064e3b; }
+  .truth p + p { margin-top:8px; }
+  .myth-body .why { font-size:13.5px; font-weight:600; color:var(--sub); line-height:1.55; }
+  .myth-body .why b { color:var(--ink); }
+
+  /* ── calc box ── */
+  .calc { background:var(--card); border:2px solid var(--ink); border-radius:16px; box-shadow:var(--shadow); padding:16px; margin-bottom:16px; }
+  .calc-t { font-size:14.5px; font-weight:900; margin-bottom:11px; }
+  table { width:100%; border-collapse:collapse; font-size:13.5px; }
+  th, td { border:1.5px solid var(--ink); padding:8px 9px; text-align:left; font-weight:600; }
+  th { background:var(--ink); color:var(--cream); font-weight:800; font-size:12.5px; }
+  .neg { color:var(--rose-c); font-weight:900; }
+  .pos { color:var(--emerald-c); font-weight:900; }
+  .calc-note { font-size:12px; font-weight:600; color:var(--sub); margin-top:9px; line-height:1.5; }
+
+  /* ── grade compare ── */
+  .grades { display:flex; flex-direction:column; gap:9px; margin-bottom:6px; }
+  .grade { border:2px solid var(--ink); border-radius:12px; box-shadow:var(--shadow-sm); padding:11px 13px; }
+  .grade.safe { background:var(--emerald-bg); }
+  .grade.aggr { background:var(--rose-bg); }
+  .grade-h { font-size:14px; font-weight:900; margin-bottom:3px; display:flex; align-items:center; gap:6px; }
+  .grade.safe .grade-h { color:var(--emerald-c); }
+  .grade.aggr .grade-h { color:var(--rose-c); }
+  .grade p { font-size:12.5px; font-weight:600; color:#292524; line-height:1.5; }
+
+  /* ── limits ── */
+  .limits { background:var(--card); border:2px solid var(--ink); border-radius:16px; box-shadow:var(--shadow); padding:16px 17px; }
+  .limits li { list-style:none; font-size:13.5px; font-weight:600; line-height:1.55; display:flex; gap:9px; margin-bottom:11px; color:#292524; }
+  .limits li:last-child { margin-bottom:0; }
+  .limits li .m { flex-shrink:0; }
+  .limits li b { color:var(--ink); font-weight:800; }
+
+  /* ── action checklist ── */
+  .actions { display:flex; flex-direction:column; gap:10px; }
+  .act {
+    display:flex; gap:11px; align-items:flex-start; cursor:pointer;
+    background:var(--card); border:2px solid var(--ink); border-radius:13px;
+    box-shadow:var(--shadow-sm); padding:13px 14px; user-select:none;
+  }
+  .act:active { transform:translate(1px,1px); box-shadow:1px 1px 0 0 var(--ink); }
+  .act input { display:none; }
+  .box {
+    flex-shrink:0; width:24px; height:24px; border:2px solid var(--ink); border-radius:7px;
+    background:#fff; display:flex; align-items:center; justify-content:center;
+    font-size:15px; font-weight:900; color:transparent;
+  }
+  .act input:checked + .box { background:var(--emerald-bg); color:var(--emerald-c); }
+  .act-txt { flex:1; font-size:14px; font-weight:700; line-height:1.4; }
+  .act input:checked ~ .act-txt { color:var(--sub); text-decoration:line-through; }
+  .act-txt small { display:block; font-size:12px; font-weight:600; color:var(--sub); margin-top:2px; text-decoration:none; }
+
+  /* ── next teaser ── */
+  .next {
+    margin-top:22px; background:var(--blue-bg); border:2px dashed var(--ink); border-radius:14px;
+    padding:14px 15px; font-size:13px; font-weight:700; color:#1e3a8a; line-height:1.55;
+  }
+  .next b { font-weight:900; }
+
+  /* ── footer ── */
+  .foot { margin-top:30px; text-align:center; font-size:12px; font-weight:700; color:var(--sub); line-height:1.7; }
+  .src { margin-top:14px; font-size:11px; font-weight:600; color:#a8a29e; line-height:1.6; text-align:left; border-top:1.5px solid #d6d3d1; padding-top:12px; }
+  .src b { color:var(--sub); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="nav">
+    <a class="back" href="../../../">← 노후준비</a>
+    <span class="pill-accent">🧓 노후준비 · #001</span>
+  </div>
+
+  <h1>부모님 퇴직연금,<br><span class="hl">디폴트옵션</span>에 속지 않기</h1>
+  <p class="sub">30~40대 자녀가 꼭 알아야 할 오해 3가지 · 팩트체크</p>
+
+  <div class="disc">
+    ⚠️ 이 글은 특정 상품·매수 추천이 아니라 <b>오해를 바로잡는 교육 기록</b>입니다.
+    투자 판단과 결정은 본인 몫이며, 정확한 수익률·수수료는 금융감독원 통합연금포털과 각 금융사에서 직접 확인하세요.
+  </div>
+
+  <!-- 결론 먼저 -->
+  <div class="conclusion">
+    <div class="k">결론 먼저</div>
+    <ul>
+      <li><span class="cx">✗</span><span><b>디폴트옵션 지정 ≠ 자동으로 안전.</b> 대부분 예금에 방치돼요.</span></li>
+      <li><span class="cx">✗</span><span><b>적극투자형 ≠ 원금 보장.</b> 원리금 보장은 '안정형' 하나뿐.</span></li>
+      <li><span class="cx">✗</span><span><b>"지금 저점" 몰빵 ≠ 좋은 전략.</b> 저점은 사후에만 알 수 있어요.</span></li>
+    </ul>
+  </div>
+
+  <!-- 01 오해 3종 -->
+  <div class="sec"><span class="sec-no">01</span><span class="sec-title">오해 3가지 · 펼쳐서 확인</span></div>
+
+  <details class="myth" open>
+    <summary>
+      <span class="myth-num">1</span>
+      <span class="myth-head">
+        <span class="myth-tag">흔한 오해</span>
+        <div class="myth-q"><span class="quote">"디폴트옵션 지정했으니</span> 알아서 잘 굴러가겠지"</div>
+      </span>
+      <span class="chev">▶</span>
+    </summary>
+    <div class="myth-body">
+      <div class="truth">
+        <div class="truth-tag">✓ 진실</div>
+        <p>디폴트옵션(사전지정운용제도)은 "운용 지시를 안 하면 미리 정한 상품으로 굴려주는" 제도일 뿐, "가장 잘 굴려주는" 제도가 아닙니다.</p>
+        <p>실제로는 지정 금액의 <b>약 85%가 '안정형(정기예금)'에 몰려</b> 있어요. 즉 "지정 완료 = 사실상 예금에 방치"인 경우가 대부분입니다.</p>
+      </div>
+      <p class="why">그래서 "지정했다"에 안심하면 안 돼요. <b>부모님(또는 내) 계좌가 어떤 등급으로 지정돼 있는지</b>부터 앱에서 확인하는 게 진짜 시작입니다.</p>
+    </div>
+  </details>
+
+  <details class="myth">
+    <summary>
+      <span class="myth-num">2</span>
+      <span class="myth-head">
+        <span class="myth-tag">위험한 오해</span>
+        <div class="myth-q"><span class="quote">"적극투자형도</span> 원금은 보장되는 거 아냐?"</div>
+      </span>
+      <span class="chev">▶</span>
+    </summary>
+    <div class="myth-body">
+      <div class="truth">
+        <div class="truth-tag">✓ 진실</div>
+        <p>디폴트옵션 4등급(안정형·안정투자형·중립투자형·적극투자형) 중 <b>원리금이 보장되는 건 '안정형' 하나뿐</b>입니다.</p>
+        <p>나머지는 펀드·ETF가 들어 있어 <b>시장이 빠지면 원금도 같이 손실</b>이 납니다. "예금자보호 1억"도 예금 상품에만 적용돼요 — 투자형은 대상이 아닙니다.</p>
+      </div>
+      <p class="why">수익률은 곱셈으로 쌓입니다. <b>+20% 뒤 −30%</b>는 −10%가 아니라 실제로는 원금보다 손해예요. 아래 숫자로 확인하세요.</p>
+    </div>
+  </details>
+
+  <details class="myth">
+    <summary>
+      <span class="myth-num">3</span>
+      <span class="myth-head">
+        <span class="myth-tag">타이밍 오해</span>
+        <div class="myth-q"><span class="quote">"지금 저점이니까</span> 초고위험에 몰빵하면 대박"</div>
+      </span>
+      <span class="chev">▶</span>
+    </summary>
+    <div class="myth-body">
+      <div class="truth">
+        <div class="truth-tag">✓ 진실</div>
+        <p>"저점에 사서 버티면 최고"라는 논리는 이론상 맞지만, <b>"지금이 저점"이라는 건 사후에만 알 수 있습니다.</b></p>
+        <p>2026년 7월 현재 코스피는 오히려 <b>1년 새 크게 오른 고점 근처에서 출렁이는 변동성 장세</b>예요. "많이 빠진 느낌"이 곧 "바닥"은 아닙니다.</p>
+      </div>
+      <p class="why">대안은 <b>적립식(DCA·분할매수)</b>입니다. 퇴직연금은 매달 자동으로 돈이 들어가 "쌀 때 많이·비쌀 때 적게" 사지므로, 타이밍을 재지 않아도 평균 단가가 맞춰져요. <b>timing the market보다 time in market.</b></p>
+    </div>
+  </details>
+
+  <!-- 02 숫자로 보기 -->
+  <div class="sec"><span class="sec-no">02</span><span class="sec-title">숫자로 보면</span></div>
+
+  <div class="calc">
+    <div class="calc-t">💰 400만원을 적극투자형에 뒀다면</div>
+    <table>
+      <tr><th>단계</th><th>계산</th><th>잔액</th></tr>
+      <tr><td>원금</td><td>—</td><td>400만원</td></tr>
+      <tr><td>1년차 +20%</td><td>×1.2</td><td class="pos">480만원</td></tr>
+      <tr><td>2년차 −30%</td><td>×0.7</td><td class="neg">336만원</td></tr>
+    </table>
+    <p class="calc-note">처음에 20% 벌어도 다음에 30% 빠지면 <b style="color:#be123c">원금보다 64만원 손해</b>. 수익·손실은 곱해져서 누적되기 때문이에요.</p>
+  </div>
+
+  <div class="grades">
+    <div class="grade safe">
+      <div class="grade-h">🛡️ 안정형 (원금 지킴)</div>
+      <p>원리금 보장 · 예금자보호 대상 · 대신 수익률 낮음(2%대, 물가 겨우 방어)</p>
+    </div>
+    <div class="grade aggr">
+      <div class="grade-h">🚀 적극투자형 (원금 손실 가능)</div>
+      <p>펀드·ETF · 보장 없음 · 시장 좋으면 두 자릿수 수익, 나쁘면 두 자릿수 손실</p>
+    </div>
+  </div>
+  <p class="calc-note" style="margin-bottom:0">👉 <b>"원금 보장 + 고수익" 둘 다 갖는 상품은 없습니다.</b> 이게 투자의 제1법칙이에요.</p>
+
+  <!-- 03 냉정한 한계점 -->
+  <div class="sec"><span class="sec-no">03</span><span class="sec-title">냉정한 한계점</span></div>
+  <div class="limits">
+    <ul>
+      <li><span class="m">🚫</span><span>이 글은 <b>매수 신호가 아닙니다.</b> 언제·얼마를 넣을지는 본인의 위험 감내 수준으로 정하는 거예요.</span></li>
+      <li><span class="m">📉</span><span>본문의 수익률(적극투자형 두 자릿수 등)은 <b>과거 특정 시기 실적</b>이고, 미래를 보장하지 않습니다.</span></li>
+      <li><span class="m">✍️</span><span>작성자(환희)도 <b>아직 실제 투자 전</b>입니다. 이 글은 '오해 교정 편'이고, 적립식 소액을 직접 해본 <b>실체험 기록은 다음 편</b>으로 남길 예정이에요.</span></li>
+      <li><span class="m">👤</span><span>글쓴이는 재무상담사가 아닙니다. 큰 금액·중요한 결정은 <b>전문가에게 한 번 더 확인</b>하세요.</span></li>
+    </ul>
+  </div>
+
+  <!-- 04 액션플랜 -->
+  <div class="sec"><span class="sec-no">04</span><span class="sec-title">오늘 할 일 (체크)</span></div>
+  <div class="actions">
+    <label class="act">
+      <input type="checkbox" />
+      <span class="box">✓</span>
+      <span class="act-txt">내(부모님) 퇴직연금 등급 확인<small>앱에서 안정형인지 투자형인지 먼저 보기</small></span>
+    </label>
+    <label class="act">
+      <input type="checkbox" />
+      <span class="box">✓</span>
+      <span class="act-txt">금감원 통합연금포털에서 비교<small>모든 금융사 수익률·수수료 한눈에</small></span>
+    </label>
+    <label class="act">
+      <input type="checkbox" />
+      <span class="box">✓</span>
+      <span class="act-txt">몰빵 대신 적립식(DCA) 검토<small>한 번에 다 넣는 대신 나눠서</small></span>
+    </label>
+    <label class="act">
+      <input type="checkbox" />
+      <span class="box">✓</span>
+      <span class="act-txt">보수(수수료) 체크<small>10년 이상 굴리면 수수료 0.6%도 크게 깎임</small></span>
+    </label>
+  </div>
+
+  <div class="next">
+    📌 <b>다음 편 예고</b> — 환희가 실제로 퇴직연금 계좌를 열어 적립식 소액을 시작하고,
+    그 과정을 그대로 기록합니다. "오해 교정"에서 "직접 해본 진짜 서사"로.
+  </div>
+
+  <div class="foot">
+    🙌 made by 환희 — 배우면 만들고, 만들면 박제한다.
+    <div class="src">
+      <b>참고:</b> 고용노동부·금융감독원 디폴트옵션(사전지정운용제도) 공시자료 · 금융감독원 통합연금포털(수익률·수수료 비교) · 2026년 7월 국내 증시 지수 동향.
+      수치는 발행 시점 기준이며 변동될 수 있습니다.
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
