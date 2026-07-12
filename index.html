@@ -65,7 +65,12 @@ const TREE = [
   {
     id:"retire", emoji:"🧓", title:"노후준비",
     desc:"부모님 노후, 자녀가 대신 확인한 진짜 정보 — 오해 교정 기록",
-    tone:"#f5b74f", badge:"준비중", status:"soon",
+    tone:"#f5b74f",
+    children:[
+      { id:"pension-myths", emoji:"💰", title:"퇴직연금 디폴트옵션 오해 3가지",
+        desc:"부모님 퇴직연금, 자녀가 대신 확인할 진짜 — 팩트체크", badge:"#001",
+        href:"./boards/retire/pension-myths/" },
+    ]
   },
   // ── 추후 대분류는 여기에 한 줄씩 추가 (예: 요양보호사, 실버 시장 인사이트) ──
 ];
