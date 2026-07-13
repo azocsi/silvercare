@@ -53,11 +53,11 @@ const TREE = [
             desc:"노인복지론+청소년복지론 15주 · 퀴즈·중간·기말 마감 추적", badge:"S2",
             href:"./boards/social-worker-2/eval-calendar/" },
           { id:"elderly", emoji:"📕", title:"노인복지론",
-            desc:"노화의 이해 · 소득·건강·장기요양 · 인권·호스피스", badge:"준비중",
-            status:"soon" },
+            desc:"노화의 이해 · 소득·건강·장기요양 · 인권·호스피스", badge:"진행중",
+            href:"https://hwanee.com/silvercare/geriatric", top:true },
           { id:"youth", emoji:"📘", title:"청소년복지론",
-            desc:"청소년 발달 · 상담 · 비행·학교폭력 · 복지정책", badge:"준비중",
-            status:"soon" },
+            desc:"청소년 발달 · 상담 · 비행·학교폭력 · 복지정책", badge:"진행중",
+            href:"https://hwanee.com/silvercare/youth", top:true },
         ]
       }
     ]
@@ -100,7 +100,10 @@ function Card({ node, onOpen }) {
   const go = () => {
     if (soon) return;
     if (hasKids) onOpen(node.id);
-    else if (node.href) window.location.href = node.href;
+    else if (node.href) {
+      if (node.top) window.top.location.href = node.href;
+      else window.location.href = node.href;
+    }
   };
   return (
     <button onClick={go} disabled={soon}
@@ -113,7 +116,10 @@ function Card({ node, onOpen }) {
       onMouseLeave={e=>{ e.currentTarget.style.transform="none"; e.currentTarget.style.boxShadow=B.shadow; }}>
       <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start" }}>
         <span style={{ fontSize:34, lineHeight:1 }}>{node.emoji}</span>
-        {node.badge && <span style={{ fontSize:11.5, fontWeight:900, color:B.cream, background:B.ink,
+        {node.badge && <span style={{ fontSize:11.5, fontWeight:900,
+          color: node.badge==="진행중" ? "#047857" : B.cream,
+          background: node.badge==="진행중" ? "#d1fae5" : B.ink,
+          border: node.badge==="진행중" ? `1.5px solid ${B.ink}` : "none",
           borderRadius:6, padding:"3px 8px", letterSpacing:0.5 }}>{node.badge}</span>}
       </div>
       <div style={{ fontSize:18, fontWeight:900, lineHeight:1.2 }}>{node.title}</div>
