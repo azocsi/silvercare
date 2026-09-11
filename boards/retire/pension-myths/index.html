@@ -6,10 +6,13 @@
 <title>퇴직연금 디폴트옵션 오해 3가지 · 노후준비 #001</title>
 <meta name="description" content="부모님 퇴직연금, 자녀가 대신 확인해야 할 디폴트옵션 오해 3가지 — 매수추천 아닌 오해교정 교육 기록." />
 <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/gh/eunchurn/NanumSquareNeo@0.0.6/nanumsquareneo.css" rel="stylesheet" type="text/css" />
 <style>
   :root {
     --ink:#1c1917; --cream:#fdfcf7; --card:#fffdf8; --sub:#78716c;
     --shadow:4px 4px 0 0 #1c1917; --shadow-sm:2px 2px 0 0 #1c1917;
+    /* 제목 전용. 이 폰트는 웨이트 번호가 비표준 — ExtraBold = 700 (800은 Heavy) */
+    --display:"NanumSquareNeo",Pretendard,-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
     --emerald-c:#047857; --emerald-bg:#d1fae5;
     --blue-c:#1d4ed8; --blue-bg:#dbeafe;
     --amber-c:#b45309; --amber-bg:#fef3c7;
@@ -164,6 +167,15 @@
   .foot { margin-top:30px; text-align:center; font-size:12px; font-weight:700; color:var(--sub); line-height:1.7; }
   .src { margin-top:14px; font-size:11px; font-weight:600; color:#a8a29e; line-height:1.6; text-align:left; border-top:1.5px solid #d6d3d1; padding-top:12px; }
   .src b { color:var(--sub); }
+  /* ── 제목 전용: 나눔스퀘어 Neo ExtraBold(700) ──
+     반드시 style 블록 최하단. 위쪽 font-weight:900 선언을 순서로 덮어쓴다.
+     본문·설명문·myth/truth 태그는 Pretendard 유지(가독성). */
+  h1, .sub, .sec-no, .sec-title, .pill-accent, .conclusion .k {
+    font-family:var(--display);
+    font-weight:700;
+  }
+  h1 { letter-spacing:-1px; }
+  .sec-title { letter-spacing:-0.3px; }
 </style>
 </head>
 <body>
