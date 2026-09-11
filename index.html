@@ -6,6 +6,7 @@
 <title>SilverCare Boards · 실버케어 도메인 허브</title>
 <link rel="preconnect" href="https://cdn.jsdelivr.net" />
 <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/gh/eunchurn/NanumSquareNeo@0.0.6/nanumsquareneo.css" rel="stylesheet" type="text/css" />
 <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
 <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
 <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -28,6 +29,14 @@ const { useState, useEffect } = React;
 /* ── 팔레트 (silvercare 고정) ───────────────────────────── */
 const B = { ink:"#1c1917", cream:"#fdfcf7", card:"#fffdf8", sub:"#78716c",
   shadow:"5px 5px 0 0 #1c1917", shadowSm:"3px 3px 0 0 #1c1917" };
+/* 제목 전용 — 나눔스퀘어 Neo ExtraBold.
+   ★ 이 폰트는 웨이트 번호가 비표준이다. ExtraBold = 700 (800은 Heavy, 900은 없음).
+   900을 쓰면 매칭 실패로 Pretendard로 떨어지니 제목엔 반드시 700.
+   본문·카드제목·리스트라벨은 Pretendard 유지(가독성). */
+const FONT_BODY = "Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif";
+const FONT_DISPLAY = `"NanumSquareNeo", ${FONT_BODY}`;
+const D = { fontFamily: FONT_DISPLAY, fontWeight: 700 };
+
 
 /* ════════════════════════════════════════════════════════
    ★ 콘텐츠 트리 — 보드 추가는 여기만 건드리면 됨.
@@ -70,6 +79,9 @@ const TREE = [
       { id:"pension-myths", emoji:"💰", title:"퇴직연금 디폴트옵션 오해 3가지",
         desc:"부모님 퇴직연금, 자녀가 대신 확인할 진짜 — 팩트체크", badge:"#001",
         href:"./boards/retire/pension-myths/" },
+      { id:"integrated-care", emoji:"🧓", title:"통합돌봄 오해 5가지",
+        desc:"2026년 바뀐 부모님 돌봄, 자녀가 대신 확인할 진짜 — 팩트체크", badge:"#002",
+        href:"./boards/retire/integrated-care/" },
     ]
   },
   // ── 추후 대분류는 여기에 한 줄씩 추가 (예: 요양보호사, 실버 시장 인사이트) ──
@@ -116,7 +128,7 @@ function Card({ node, onOpen }) {
       onMouseLeave={e=>{ e.currentTarget.style.transform="none"; e.currentTarget.style.boxShadow=B.shadow; }}>
       <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start" }}>
         <span style={{ fontSize:34, lineHeight:1 }}>{node.emoji}</span>
-        {node.badge && <span style={{ fontSize:11.5, fontWeight:900,
+        {node.badge && <span style={{ fontSize:11.5, ...D,
           color: node.badge==="진행중" ? "#047857" : B.cream,
           background: node.badge==="진행중" ? "#d1fae5" : B.ink,
           border: node.badge==="진행중" ? `1.5px solid ${B.ink}` : "none",
@@ -162,8 +174,8 @@ function App() {
         {path.length === 0 ? (
           <>
             <div style={{ display:"inline-block", ...bru("#6fcf7c", true),
-              padding:"4px 12px", fontSize:13, fontWeight:900, marginBottom:14 }}>🤲 SilverCare Boards</div>
-            <h1 style={{ fontSize:32, fontWeight:900, margin:"0 0 12px", lineHeight:1.18 }}>
+              padding:"4px 12px", fontSize:13, ...D, marginBottom:14 }}>🤲 SilverCare Boards</div>
+            <h1 style={{ fontSize:32, ...D, margin:"0 0 12px", lineHeight:1.18, letterSpacing:-1 }}>
               전문가는 선언이 아니라<br/>
               <span style={{ background:"#6fcf7c", border:`2px solid ${B.ink}`, borderRadius:8,
                 padding:"0 10px", boxShadow:B.shadowSm, display:"inline-block", marginTop:8 }}>기록</span>으로 증명된다
@@ -193,7 +205,7 @@ function App() {
               ))}
             </div>
             {cur && <>
-              <h1 style={{ fontSize:28, fontWeight:900, margin:"0 0 6px", lineHeight:1.15 }}>
+              <h1 style={{ fontSize:28, ...D, margin:"0 0 6px", lineHeight:1.15, letterSpacing:-0.5 }}>
                 {cur.emoji} {cur.title}</h1>
               {cur.desc && <p style={{ fontSize:14, fontWeight:600, color:B.sub, margin:"0 0 22px", lineHeight:1.6 }}>{cur.desc}</p>}
             </>}

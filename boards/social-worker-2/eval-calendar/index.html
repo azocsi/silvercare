@@ -6,6 +6,7 @@
 <title>사복2급 · 노인+청소년복지론 평가 캘린더</title>
 <link rel="preconnect" href="https://cdn.jsdelivr.net" />
 <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/gh/eunchurn/NanumSquareNeo@0.0.6/nanumsquareneo.css" rel="stylesheet" type="text/css" />
 <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
 <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
 <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -23,6 +24,14 @@ const { useState, useMemo } = React;
 
 const B = { ink:"#1c1917", cream:"#fdfcf7", card:"#fffdf8", sub:"#78716c",
   shadow:"4px 4px 0 0 #1c1917", shadowSm:"2px 2px 0 0 #1c1917" };
+/* 제목 전용 — 나눔스퀘어 Neo ExtraBold.
+   ★ 이 폰트는 웨이트 번호가 비표준이다. ExtraBold = 700 (800은 Heavy, 900은 없음).
+   900을 쓰면 매칭 실패로 Pretendard로 떨어지니 제목엔 반드시 700.
+   본문·카드제목·리스트라벨은 Pretendard 유지(가독성). */
+const FONT_BODY = "Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif";
+const FONT_DISPLAY = `"NanumSquareNeo", ${FONT_BODY}`;
+const D = { fontFamily: FONT_DISPLAY, fontWeight: 700 };
+
 const ST = {
   best:    { c:"#047857", bg:"#d1fae5", dot:"#059669" },
   ok:      { c:"#1d4ed8", bg:"#dbeafe", dot:"#2563eb" },
@@ -63,8 +72,8 @@ function Pill({ st, children }) {
 }
 function SectionTitle({ no, kr, en }) {
   return <div style={{ display:"flex", alignItems:"baseline", gap:12, marginBottom:16 }}>
-    <span style={{ fontSize:13, fontWeight:900, color:B.cream, background:B.ink, padding:"3px 9px", borderRadius:6, letterSpacing:1 }}>{no}</span>
-    <div><div style={{ fontSize:20, fontWeight:900, lineHeight:1.1 }}>{kr}</div>
+    <span style={{ fontSize:13, ...D, color:B.cream, background:B.ink, padding:"3px 9px", borderRadius:6, letterSpacing:1 }}>{no}</span>
+    <div><div style={{ fontSize:20, ...D, lineHeight:1.1, letterSpacing:-0.3 }}>{kr}</div>
     <div style={{ fontSize:12, fontWeight:700, color:B.sub, letterSpacing:0.5 }}>{en}</div></div></div>;
 }
 
@@ -95,13 +104,13 @@ function App() {
 
         <div style={{ marginBottom:22 }}>
           <div style={{ fontSize:12.5, fontWeight:800, color:B.sub, marginBottom:8 }}>📅 사회복지사 2급 · 1학기차 선택 2과목</div>
-          <h1 style={{ fontSize:27, fontWeight:900, margin:0, lineHeight:1.1 }}>주차별 평가 마감 캘린더</h1>
+          <h1 style={{ fontSize:27, ...D, margin:0, lineHeight:1.1, letterSpacing:-1 }}>주차별 평가 마감 캘린더</h1>
           <p style={{ fontSize:13, color:B.sub, fontWeight:600, margin:"8px 0 0" }}>
             노인복지론 · 청소년복지론 — 둘 다 <b style={{ color:B.ink }}>2026-06-25 시작</b> / 15주 / 메가원격</p>
         </div>
 
         <div style={{ ...cardBase, background:"#fffbeb", marginBottom:22 }}>
-          <div style={{ fontSize:15, fontWeight:900, marginBottom:10 }}>🎯 결론 먼저</div>
+          <div style={{ fontSize:15, ...D, marginBottom:10 }}>🎯 결론 먼저</div>
           <p style={{ fontSize:14, fontWeight:600, lineHeight:1.6, margin:0 }}>
             두 과목 일정이 <b>완전히 동일</b>해서 <b style={{ color:"#be123c" }}>퀴즈·중간·기말이 같은 주에 2배로</b> 몰린다.
             진짜 위험한 건 <b style={{ color:"#be123c" }}>중간(8주)·기말(15주)</b> — 둘 중 하나만 빠져도 그 과목은 즉시 F.
