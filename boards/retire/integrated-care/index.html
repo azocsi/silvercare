@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>통합돌봄 오해 5가지 — 자녀가 대신 확인할 진짜 | 노후준비 #002</title>
+<meta name="description" content="2026년 3월 전국 시행된 통합돌봄. 장기요양 등급이 없어도 대상이 될 수 있다. 부모님 돌봄을 고민하는 자녀를 위한 오해 5가지 팩트체크." />
+<meta property="og:title" content="통합돌봄 오해 5가지" />
+<meta property="og:description" content="2026년 바뀐 부모님 돌봄, 자녀가 대신 확인할 진짜" />
+<meta property="og:type" content="article" />
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/gh/eunchurn/NanumSquareNeo@0.0.6/nanumsquareneo.css" rel="stylesheet" type="text/css" />
+<style>
+  :root {
+    --ink:#1c1917; --cream:#fdfcf7; --card:#fffdf8; --sub:#78716c;
+    --shadow:4px 4px 0 0 #1c1917; --shadow-sm:2px 2px 0 0 #1c1917;
+    /* 제목 전용. ExtraBold = weight 700 (이 폰트는 웨이트 번호가 비표준) */
+    --display:"NanumSquareNeo",Pretendard,-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
+  }
+  * { box-sizing:border-box; -webkit-tap-highlight-color:transparent; margin:0; padding:0; }
+  body {
+    font-family:Pretendard,-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
+    background:linear-gradient(160deg,#fdfcf7 0%,#f5f1e8 45%,#ebe4d3 100%);
+    color:var(--ink); line-height:1.5; padding:24px 14px 48px;
+  }
+  .wrap { max-width:560px; margin:0 auto; }
+
+  .badge, .badge-green {
+    display:inline-block; font-size:11.5px; font-weight:800;
+    border:2px solid var(--ink); border-radius:999px;
+    padding:4px 11px; box-shadow:var(--shadow-sm); margin:0 6px 4px 0;
+  }
+  .badge { color:var(--ink); background:#fde68a; }
+  .badge-green { color:#047857; background:#d1fae5; }
+
+  h1 { font-size:27px; font-weight:900; margin:12px 0 3px; line-height:1.1; letter-spacing:-0.5px; }
+  h2.sub { font-size:15.5px; font-weight:800; color:var(--sub); line-height:1.25; }
+
+  .notice {
+    background:#fef3c7; border:2px solid var(--ink); border-radius:12px;
+    box-shadow:var(--shadow-sm); padding:11px 13px; margin:18px 0 20px;
+    font-size:12px; font-weight:700; color:#b45309; line-height:1.55;
+  }
+
+  .conclusion {
+    background:var(--ink); color:#fdfcf7; border:2px solid var(--ink);
+    border-radius:14px; box-shadow:var(--shadow); padding:16px; margin-bottom:26px;
+  }
+  .conclusion .tag { font-size:12.5px; font-weight:800; color:#fbbf24; margin-bottom:7px; }
+  .conclusion .body { font-size:14px; font-weight:600; line-height:1.75; }
+  .g { color:#6ee7b7; font-weight:800; }
+  .y { color:#fbbf24; font-weight:800; }
+  .r { color:#fda4af; font-weight:800; }
+
+  .section { margin-bottom:28px; }
+  .sec-title { display:flex; align-items:flex-end; gap:12px; margin-bottom:15px; }
+  .sec-no { font-family:ui-monospace,Menlo,monospace; font-size:27px; font-weight:900; line-height:1; letter-spacing:-1px; }
+  .sec-h { font-size:18px; font-weight:900; line-height:1.1; }
+  .sec-s { font-size:12.5px; color:var(--sub); font-weight:600; margin-top:2px; }
+
+  .card { background:var(--card); border:2px solid var(--ink); border-radius:14px; box-shadow:var(--shadow); padding:16px; }
+  .card + .card { margin-top:10px; }
+  .card-sm { padding:14px; }
+
+  .chip {
+    display:inline-flex; align-items:center; gap:5px; font-size:11px; font-weight:800;
+    border:1.5px solid var(--ink); border-radius:999px; padding:2px 8px; white-space:nowrap;
+  }
+  .chip .dot { width:7px; height:7px; border-radius:999px; flex-shrink:0; }
+
+  .q-head { display:flex; align-items:center; gap:8px; margin-bottom:8px; }
+  .q-t { font-size:13.5px; font-weight:800; }
+  .q-chip { margin-left:auto; }
+  .q-v { font-size:21px; font-weight:900; letter-spacing:-0.5px; margin-bottom:6px; }
+  .q-d { font-size:12.5px; color:var(--sub); font-weight:600; line-height:1.55; }
+
+  /* 오해 아코디언 */
+  .myth {
+    background:var(--card); border:2px solid var(--ink); border-radius:14px;
+    box-shadow:var(--shadow-sm); margin-bottom:10px; overflow:hidden; transition:box-shadow .15s;
+  }
+  .myth.open { box-shadow:var(--shadow); }
+  .myth-btn {
+    width:100%; display:flex; align-items:flex-start; gap:10px; background:transparent;
+    border:none; padding:14px 15px; cursor:pointer; text-align:left; font-family:inherit; color:inherit;
+  }
+  .myth-num {
+    min-width:25px; height:25px; flex-shrink:0; border-radius:8px; background:#fde68a;
+    border:2px solid var(--ink); display:flex; align-items:center; justify-content:center;
+    font-weight:900; font-size:12.5px; margin-top:1px;
+  }
+  .myth-mid { flex:1; min-width:0; }
+  .myth-x { font-size:13px; font-weight:700; color:#be123c; text-decoration:line-through; text-decoration-thickness:2px; line-height:1.4; }
+  .myth-o { font-size:14px; font-weight:900; margin-top:4px; line-height:1.35; }
+  .myth-right { display:flex; align-items:center; gap:5px; flex-shrink:0; margin-top:2px; }
+  .myth-arrow { font-size:12px; color:var(--sub); }
+  .myth-body { padding:13px 15px 15px; border-top:1.5px dashed #d6ccb5; display:none; }
+  .myth.open .myth-body { display:block; }
+  .myth-li { display:flex; gap:8px; font-size:13px; font-weight:600; line-height:1.65; margin-bottom:7px; }
+  .myth-li span.b { color:#d97706; font-weight:900; flex-shrink:0; }
+
+  /* 체크리스트 */
+  .chk-row { display:flex; gap:11px; padding:11px 0; border-bottom:1.5px dashed #d6ccb5; cursor:pointer; transition:opacity .15s; }
+  .chk-row:last-child { border-bottom:none; }
+  .chk-row.done { opacity:.5; }
+  .chk-row.done .chk-t { text-decoration:line-through; }
+  .chk-box {
+    width:25px; height:25px; flex-shrink:0; border-radius:8px; background:var(--card);
+    border:2px solid var(--ink); display:flex; align-items:center; justify-content:center;
+    font-weight:900; font-size:13px;
+  }
+  .chk-row.done .chk-box { background:#d1fae5; }
+  .chk-t { font-size:13.5px; font-weight:800; }
+  .chk-d { font-size:12px; color:var(--sub); font-weight:600; margin-top:2px; line-height:1.5; }
+
+  .desk-head { display:flex; align-items:center; gap:8px; margin-bottom:8px; }
+  .desk-t { font-size:14px; font-weight:900; }
+  .desk-d { font-size:12.5px; color:var(--sub); font-weight:600; line-height:1.6; }
+  .desk-d b { color:var(--ink); }
+
+  .lim-head { display:flex; align-items:center; gap:7px; margin-bottom:6px; }
+  .lim-t { font-size:13.5px; font-weight:900; }
+  .lim-d { font-size:12.5px; color:var(--sub); font-weight:600; line-height:1.55; }
+
+  .src { background:#f5f1e8; }
+  .src-t { display:flex; align-items:center; gap:7px; font-size:12.5px; font-weight:900; margin-bottom:8px; }
+  .src-b { font-size:11.5px; color:var(--sub); font-weight:600; line-height:1.75; }
+  .src-b b { color:#be123c; }
+
+  footer { text-align:center; font-size:11px; color:#a8a29e; font-weight:700; margin-top:26px; line-height:1.6; }
+
+  /* ── nav (허브 복귀. #001과 동일 규칙) ── */
+  .nav { margin-bottom:14px; }
+  .back {
+    display:inline-flex; align-items:center; gap:4px; font-size:13px; font-weight:800;
+    color:var(--ink); background:var(--card); border:2px solid var(--ink); border-radius:999px;
+    padding:6px 13px; box-shadow:var(--shadow-sm); text-decoration:none;
+  }
+  .back:active { transform:translate(1px,1px); box-shadow:1px 1px 0 0 var(--ink); }
+
+  /* ── 제목 전용: 나눔스퀘어 Neo ExtraBold(700) ──
+     반드시 style 블록 최하단에 둘 것. 위쪽 font-weight:900 선언을 덮어써야 함.
+     본문·설명문은 Pretendard 유지(가독성). */
+  h1, h2.sub, .sec-h, .q-v, .myth-o, .conclusion .tag, .badge, .badge-green {
+    font-family:var(--display);
+    font-weight:700;
+  }
+  h1 { letter-spacing:-1px; }
+  .sec-h { letter-spacing:-0.3px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="nav"><a class="back" href="../../../">← 노후준비</a></div>
+  <div id="app"></div>
+</div>
+
+<script>
+var ST = {
+  best:    { label:"확정",   c:"#047857", bg:"#d1fae5", dot:"#059669" },
+  ok:      { label:"대체로", c:"#1d4ed8", bg:"#dbeafe", dot:"#2563eb" },
+  limited: { label:"지역차", c:"#b45309", bg:"#fef3c7", dot:"#d97706" },
+  no:      { label:"주의",   c:"#be123c", bg:"#ffe4e6", dot:"#e11d48" },
+  unknown: { label:"미확인", c:"#57534e", bg:"#e7e5e4", dot:"#a8a29e" }
+};
+
+function el(tag, attrs, text) {
+  var n = document.createElement(tag);
+  if (attrs) for (var k in attrs) { if (attrs[k] !== null && attrs[k] !== undefined) n.setAttribute(k, attrs[k]); }
+  if (text !== undefined && text !== null) n.textContent = text;
+  return n;
+}
+function chip(status, label) {
+  var s = ST[status] || ST.unknown;
+  var c = el("span", { "class":"chip", "style":"color:"+s.c+";background:"+s.bg+";" });
+  c.appendChild(el("span", { "class":"dot", "style":"background:"+s.dot+";" }));
+  c.appendChild(document.createTextNode(label || s.label));
+  return c;
+}
+function sec(no, title, sub) {
+  var s = el("div", { "class":"section" });
+  var h = el("div", { "class":"sec-title" });
+  h.appendChild(el("span", { "class":"sec-no" }, no));
+  var d = el("div");
+  d.appendChild(el("div", { "class":"sec-h" }, title));
+  if (sub) d.appendChild(el("div", { "class":"sec-s", "id":"sub-"+no }, sub));
+  h.appendChild(d);
+  s.appendChild(h);
+  return s;
+}
+
+var QUICK = [
+  ["언제부터","2026.3.27","best","돌봄통합지원법 전국 본사업 시행. 시범사업 끝났고 지금은 전국 어디서나 돌아가는 제도."],
+  ["무엇이 바뀌나","한 번 신청","best","따로따로 신청하던 의료·요양·돌봄을 지자체가 하나의 돌봄 계획으로 묶어서 연계."],
+  ["어디에","읍·면·동","best","주소지 행정복지센터 또는 국민건강보험공단 지사. 둘 다 창구."]
+];
+
+var MYTHS = [
+  ["장기요양 등급이 있어야 신청할 수 있다","등급이 없어도 신청 대상이 될 수 있다","ok",[
+    "장기요양 등급이 없더라도 실제 일상생활에 어려움이 확인되면 지자체 판단으로 지원 가능성이 열려 있다.",
+    "대상 선정 기준이 소득 수준이 아니라 '돌봄의 시급성'과 '복합적 욕구' 중심이다.",
+    "등급 신청에서 떨어진 뒤 '그럼 아무것도 못 받나' 하고 포기한 경우가 많은데, 통합돌봄은 그 지점을 겨냥해 만들어진 제도다.",
+    "단, 최종 판단은 지자체가 한다. 상담 자체를 막는 조건은 아니니 일단 문의해보는 게 맞다."
+  ]],
+  ["예전 '노인맞춤돌봄'이랑 이름만 바뀐 것","묶이는 범위가 다르다 — 의료가 들어왔다","best",[
+    "기존 장기요양 서비스는 '요양'에 집중돼 있었다.",
+    "통합돌봄은 여기에 방문진료 같은 의료와 식사·주거 지원을 함께 묶는 구조다.",
+    "예전에는 장기요양 등급을 받으면 식사·이동·주거 서비스를 중복으로 받기 어려웠다. 담당 기관이 달라(건보공단 / 지자체) 정보가 따로 놀았기 때문.",
+    "그 '따로 놀던 구조'를 하나의 계획으로 통합하는 게 이 법의 핵심이다."
+  ]],
+  ["본인이 직접 신청해야만 한다","직권 발굴로 연결되는 경로도 있다","ok",[
+    "본인 신청이 어려운 경우에도 공무원·전문가의 직권 발굴로 지원이 연결될 수 있다.",
+    "실제로 2026년 하반기 들어 지자체들이 전수조사·현장조사로 대상자를 먼저 찾아 나서고 있다.",
+    "다만 '알아서 찾아와 주겠지'는 위험하다. 자녀가 먼저 읍·면·동에 문의하는 쪽이 훨씬 빠르다.",
+    "부모님이 지방에 계시고 자녀가 수도권이면, 문의 창구는 부모님 '주소지' 기준이다."
+  ]],
+  ["신청하면 바로 서비스가 시작된다","가정 방문 조사와 계획 수립 기간이 든다","limited",[
+    "신청 후 가정을 방문해 욕구 조사를 거치고, 개인별 지원 계획을 세우는 기간이 필요하다.",
+    "즉 '내일 퇴원인데 오늘 신청'은 타이밍이 빠듯하다. 퇴원 일정이 잡히면 그때 움직이는 게 낫다.",
+    "다만 사고나 급작스러운 퇴원처럼 시급한 상황에서는 긴급 지원 경로가 열려 있을 수 있다.",
+    "소요 기간은 지자체 인력 상황에 따라 차이가 크다. 문의할 때 예상 기간을 반드시 같이 물어볼 것."
+  ]],
+  ["전국 어디나 똑같이 돌아간다","지역별 편차가 아직 크다","no",[
+    "시행 직전 기준으로 관련 조례를 만든 지자체가 183곳 중 20곳, 전담 센터를 설치한 곳이 15곳 수준이었다.",
+    "정부가 지역 격차를 줄이려고 성과 기반 예산 차등 지원을 도입했다는 건, 뒤집으면 지금 편차가 크다는 뜻이다.",
+    "그래서 '인터넷에서 본 설명'과 '부모님 동네 실제 답변'이 다를 수 있다.",
+    "★ 이 글을 포함해 어떤 온라인 정보도 최종 근거가 될 수 없다. 반드시 부모님 주소지 창구에서 확인할 것."
+  ]]
+];
+
+var CHECKLIST = [
+  ["부모님 주소지 확인","문의 창구는 자녀 주소가 아니라 부모님 주소 기준이다"],
+  ["현재 받고 있는 서비스 정리","장기요양 등급 유무, 노인맞춤돌봄 등 기존 지원 내역"],
+  ["일상생활 어려움을 구체적으로 메모","식사·이동·목욕·복약 중 무엇이 어려운지. 추상적 표현보다 구체 사례"],
+  ["최근 입원·퇴원 이력","퇴원 환자는 제도의 핵심 대상이다. 날짜와 병원명 정리"],
+  ["물어볼 것 미리 적기","대상 여부 · 예상 소요 기간 · 기존 서비스와 중복 여부 · 필요 서류"]
+];
+
+var DESKS = [
+  ["🏠","읍·면·동 행정복지센터","부모님 <b>주소지 기준</b>. 자녀 주소가 아니다. 통합돌봄 담당자를 찾아 연결해달라고 요청하면 된다."],
+  ["☎️","국민건강보험공단 지사","장기요양 관련 이력이 있다면 이쪽이 빠를 수 있다. 기존 등급·서비스 내역을 같이 확인하기 좋다."]
+];
+
+var LIMITS = [
+  ["⚠️","제도가 아직 초기다","2026년 3월 시행이라 세부 기준이 조정되는 중이고, 지자체 판단이 개입한다. 오늘 맞는 설명이 반년 뒤에 달라질 수 있다."],
+  ["❌","모르는 사람이 여전히 많다","2026년 6월 조사에서 국민 42.9%가 시행 사실을 몰랐다. 창구 담당자도 지역에 따라 안내 편차가 있을 수 있어 한 번에 끝난다고 기대하지 말 것."],
+  ["🕐","서비스가 다 갖춰진 상태는 아니다","2026~27년은 30종 서비스 정착 단계다. 방문재활·병원동행 같은 항목은 2028년 이후 본격 도입 예정."],
+  ["📋","이 글은 제도 절차 정리다","건강 상태에 대한 진단·처방·치료 안내가 아니다. 의학적 판단이 필요한 부분은 반드시 의료진과 상의할 것."]
+];
+
+function render() {
+  var app = document.getElementById("app");
+
+  var head = el("div");
+  head.appendChild(el("span", { "class":"badge" }, "🧓 노후준비 #002"));
+  head.appendChild(el("span", { "class":"badge-green" }, "📅 확인일 2026-09-11"));
+  head.appendChild(el("h1", null, "통합돌봄 오해 5가지"));
+  head.appendChild(el("h2", { "class":"sub" }, "2026년 바뀐 부모님 돌봄, 자녀가 대신 확인할 진짜"));
+  app.appendChild(head);
+
+  app.appendChild(el("div", { "class":"notice" },
+    "⚠️ 이 글은 제도 절차를 정리한 기록이다. 건강 상태에 대한 진단·처방·치료 안내가 아니며, 특정 기관·상품 추천도 아니다. 최종 확인은 부모님 주소지 읍·면·동 행정복지센터에서."));
+
+  var con = el("div", { "class":"conclusion" });
+  con.appendChild(el("div", { "class":"tag" }, "📌 결론 먼저"));
+  var cb = el("div", { "class":"body" });
+  cb.innerHTML = "부모님 돌봄 제도가 <span class='g'>2026년 3월 27일부터 전국에서 바뀌었다.</span> "
+    + "흩어져 있던 의료·요양·돌봄을 한 번 신청으로 묶어준다. "
+    + "그런데 2026년 6월 조사에서 <span class='y'>국민 42.9%가 시행 사실조차 몰랐다.</span> "
+    + "가장 많이 걸리는 오해는 <span class='g'>\"장기요양 등급이 없으면 해당 없다\"</span>는 것 — 등급이 없어도 대상이 될 수 있다. "
+    + "<span class='r'>단, 지역별 편차가 아직 크다. 온라인 정보로 판단하지 말고 창구에서 확인할 것.</span>";
+  con.appendChild(cb);
+  app.appendChild(con);
+
+  // 01 요약
+  var s1 = sec("01", "30초 요약", "바쁘면 여기까지만 읽어도 됨");
+  QUICK.forEach(function(x) {
+    var c = el("div", { "class":"card" });
+    var h = el("div", { "class":"q-head" });
+    h.appendChild(el("span", { "class":"q-t" }, x[0]));
+    var w = el("span", { "class":"q-chip" }); w.appendChild(chip(x[2]));
+    h.appendChild(w);
+    c.appendChild(h);
+    c.appendChild(el("div", { "class":"q-v" }, x[1]));
+    c.appendChild(el("div", { "class":"q-d" }, x[3]));
+    s1.appendChild(c);
+  });
+  app.appendChild(s1);
+
+  // 02 오해
+  var s2 = sec("02", "오해 5가지", "탭해서 펼치기 — ✗ 오해 / ✓ 사실");
+  MYTHS.forEach(function(x, i) {
+    var m = el("div", { "class":"myth" + (i === 0 ? " open" : "") });
+    var btn = el("button", { "class":"myth-btn", "type":"button" });
+    btn.appendChild(el("span", { "class":"myth-num" }, String(i + 1)));
+    var mid = el("div", { "class":"myth-mid" });
+    mid.appendChild(el("div", { "class":"myth-x" }, "✗ " + x[0]));
+    mid.appendChild(el("div", { "class":"myth-o" }, "✓ " + x[1]));
+    btn.appendChild(mid);
+    var right = el("div", { "class":"myth-right" });
+    right.appendChild(chip(x[2]));
+    var arrow = el("span", { "class":"myth-arrow" }, i === 0 ? "▼" : "▶");
+    right.appendChild(arrow);
+    btn.appendChild(right);
+    var body = el("div", { "class":"myth-body" });
+    x[3].forEach(function(line) {
+      var li = el("div", { "class":"myth-li" });
+      li.appendChild(el("span", { "class":"b" }, "▸"));
+      li.appendChild(el("span", null, line));
+      body.appendChild(li);
+    });
+    btn.addEventListener("click", function() {
+      var isOpen = m.classList.contains("open");
+      document.querySelectorAll(".myth").forEach(function(o) {
+        o.classList.remove("open");
+        var ar = o.querySelector(".myth-arrow");
+        if (ar) ar.textContent = "▶";
+      });
+      if (!isOpen) { m.classList.add("open"); arrow.textContent = "▼"; }
+    });
+    m.appendChild(btn);
+    m.appendChild(body);
+    s2.appendChild(m);
+  });
+  app.appendChild(s2);
+
+  // 03 체크리스트
+  var s3 = sec("03", "문의 전 체크리스트", "탭해서 체크 — 0/5 준비됨");
+  var sub3 = s3.querySelector("#sub-03");
+  var c3 = el("div", { "class":"card" });
+  var done = {};
+  CHECKLIST.forEach(function(x, i) {
+    var r = el("div", { "class":"chk-row" });
+    var box = el("span", { "class":"chk-box" }, "");
+    r.appendChild(box);
+    var mid = el("div", { "style":"flex:1;" });
+    mid.appendChild(el("div", { "class":"chk-t" }, x[0]));
+    mid.appendChild(el("div", { "class":"chk-d" }, x[1]));
+    r.appendChild(mid);
+    r.addEventListener("click", function() {
+      done[i] = !done[i];
+      r.classList.toggle("done", done[i]);
+      box.textContent = done[i] ? "✓" : "";
+      var n = 0; for (var k in done) { if (done[k]) n++; }
+      if (sub3) sub3.textContent = "탭해서 체크 — " + n + "/" + CHECKLIST.length + " 준비됨";
+    });
+    c3.appendChild(r);
+  });
+  s3.appendChild(c3);
+  app.appendChild(s3);
+
+  // 04 창구
+  var s4 = sec("04", "어디에 물어보나", "창구는 두 곳");
+  DESKS.forEach(function(x) {
+    var c = el("div", { "class":"card" });
+    var h = el("div", { "class":"desk-head" });
+    h.appendChild(el("span", null, x[0]));
+    h.appendChild(el("span", { "class":"desk-t" }, x[1]));
+    c.appendChild(h);
+    var d = el("div", { "class":"desk-d" });
+    d.innerHTML = x[2];
+    c.appendChild(d);
+    s4.appendChild(c);
+  });
+  app.appendChild(s4);
+
+  // 05 한계점
+  var s5 = sec("05", "냉정한 한계점", "기대치를 먼저 맞추고 시작할 것");
+  LIMITS.forEach(function(x) {
+    var c = el("div", { "class":"card card-sm" });
+    var h = el("div", { "class":"lim-head" });
+    h.appendChild(el("span", null, x[0]));
+    h.appendChild(el("span", { "class":"lim-t" }, x[1]));
+    c.appendChild(h);
+    c.appendChild(el("div", { "class":"lim-d" }, x[2]));
+    s5.appendChild(c);
+  });
+  app.appendChild(s5);
+
+  // 출처
+  var src = el("div", { "class":"card card-sm src" });
+  src.appendChild(el("div", { "class":"src-t" }, "⚖️ 출처 · 확인일 2026-09-11"));
+  var sb = el("div", { "class":"src-b" });
+  sb.innerHTML = "「의료·요양 등 지역 돌봄의 통합지원에 관한 법률」(2024-03-26 제정, 2026-03-27 시행) · "
+    + "보건복지부 시행령·시행규칙 공포 보도자료(2025-12-09) · "
+    + "보건복지부·국민건강보험공단 통합돌봄 인지도 조사(2026-06-15~19) · "
+    + "한겨레 2022-09-15 「따로 노는 복지서비스…\"의료·장기요양 통합 지원 필요\"」<br>"
+    + "<b>※ 제도 시행 초기라 세부 기준이 조정될 수 있고 지자체 판단이 개입한다. "
+    + "이 글은 참고용이며, 최종 확인은 부모님 주소지 읍·면·동 행정복지센터 또는 국민건강보험공단 지사에서.</b>";
+  src.appendChild(sb);
+  app.appendChild(src);
+
+  app.appendChild(el("footer", null, "🧓 노후준비 #002 · 통합돌봄 팩트체크 · made by 환희"));
+}
+render();
+</script>
+</body>
+</html>
